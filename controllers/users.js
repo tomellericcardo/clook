@@ -7,7 +7,7 @@ module.exports = {
 
     create: function(req, res, next) {
         userModel.create({
-            username: req.body.name,
+            username: req.body.username,
             password: req.body.password
         }, function (err, result) {
             if (err)
@@ -22,7 +22,7 @@ module.exports = {
     },
 
     authenticate: function(req, res, next) {
-        userModel.findOne({email: req.body.email}, function(err, userInfo) {
+        userModel.findOne({email: req.body.username}, function(err, userInfo) {
             if (err)
                 next(err);
             else {
