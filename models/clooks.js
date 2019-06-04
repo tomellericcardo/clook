@@ -1,5 +1,8 @@
+// Required modules
 const mongoose = require('mongoose');
 
+
+// Clook schema
 const Schema = mongoose.Schema;
 const ClookSchema = new Schema({
     author: {
@@ -13,8 +16,10 @@ const ClookSchema = new Schema({
     duration: {
         type: Number,
         required: true
-    }
+    },
+    started: Date
 });
 
 
+// Export module
 module.exports = mongoose.model('Clook', ClookSchema)

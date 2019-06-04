@@ -1,8 +1,9 @@
+// Required modules
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const salt = 10;
 
+// User schema
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     username: {
@@ -15,10 +16,12 @@ const UserSchema = new Schema({
     }
 });
 
+// Password hashing
 UserSchema.pre('save', function(next) {
-    this.password = bcrypt.hashSync(this.password, salt);
+    this.password = bcrypt.hashSync(this.password, 10);
     next();
 });
 
 
+// Export module
 module.exports = mongoose.model('User', UserSchema);
