@@ -3,9 +3,8 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const exphbs = require('express-handlebars');
 const jwt = require('jsonwebtoken');
-
-// Local modules
 const mongoose = require('./config/database');
 const users = require('./routes/users');
 const clooks = require('./routes/clooks');
@@ -13,10 +12,12 @@ const clooks = require('./routes/clooks');
 
 // Create and setup app
 const app = express();
-app.set('secretKey', 'MySuperSecretKey');
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+app.set('secretKey', 'MySuperSecretKey');
 
 // MongoDB connection error
 mongoose.connection.on('error', function() {
@@ -26,6 +27,9 @@ mongoose.connection.on('error', function() {
 
 // Public routes
 app.use('/users', users);
+app.get(['/', '/home'], function(req, res) {
+    res.redirect('/clooks');
+});
 
 // Private routes
 app.use('/clooks', validateUser, clooks);
@@ -58,7 +62,7 @@ app.use(function(req, res, next) {
 // Error handler
 app.use(function(err, req, res, next) {
     console.log(err);
-    if(err.status === 404)
+    if (err.status === 404)
         res.status(404).json({message: 'Not found'});
     else
         res.status(500).json({message: 'Something went wrong'});

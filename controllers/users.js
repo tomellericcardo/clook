@@ -1,8 +1,6 @@
 // Required modules
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-// Local modules
 const userModel = require('../models/users');
 
 
@@ -35,7 +33,7 @@ module.exports = {
                 next(err);
             else {
                 if(bcrypt.compareSync(req.body.password, userInfo.password)) {
-                    const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
+                    let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
                     res.cookie('token', token, {maxAge: 86400, httpOnly: true}).json({
                         status: 'success',
                         message: 'User authenticated successfully',
