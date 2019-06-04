@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', clookController.getClooks);
 router.post('/', clookController.createClook);
 router.get('/:clookId', clookController.getClook);
-router.put('/:clookId', clookController.updateClook;
+router.put('/:clookId', clookController.updateClook);
 router.delete('/:clookId', clookController.deleteClook);
 
 
