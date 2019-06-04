@@ -27,9 +27,6 @@ mongoose.connection.on('error', function() {
 
 // Public routes
 app.use('/users', users);
-app.get(['/', '/home'], function(req, res) {
-    res.redirect('/clooks');
-});
 
 // Private routes
 app.use('/clooks', validateUser, clooks);
