@@ -30,7 +30,7 @@ app.get('/favicon.ico', function(req, res) {
 
 
 function validateUser(req, res, next) {
-    jwt.verify(req.cookie('token'), req.app.get('secretKey'), function(err, decoded) {
+    jwt.verify(req.cookies['token'], req.app.get('secretKey'), function(err, decoded) {
         if (err)
             res.json({status: "error", message: err.message, data: null});
         else {

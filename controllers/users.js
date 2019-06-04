@@ -30,7 +30,7 @@ module.exports = {
             else {
                 if(bcrypt.compareSync(req.body.password, userInfo.password)) {
                     const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
-                    res.cookie('token', token, {maxAge: 86400}).json({
+                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).json({
                         status: "success",
                         message: "user found!!!",
                         data: null
