@@ -40,7 +40,7 @@ function validateUser(req, res, next) {
 
 
 app.use(function(req, res, next) {
- let err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });

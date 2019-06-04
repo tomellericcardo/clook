@@ -22,7 +22,7 @@ module.exports = {
     },
 
     authenticate: function(req, res, next) {
-        userModel.findOne({email: req.body.username}, function(err, userInfo) {
+        userModel.findOne({username: req.body.username}, function(err, userInfo) {
             if (err)
                 next(err);
             else {
