@@ -3,8 +3,9 @@ const logger = require('morgan');
 const users = require('./routes/users');
 const clooks = require('./routes/clooks');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('./config/database');
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 
 const app = express();
@@ -14,6 +15,7 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
 
 
 app.get('/', function(req, res) {
@@ -28,7 +30,7 @@ app.get('/favicon.ico', function(req, res) {
 
 
 function validateUser(req, res, next) {
-    jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err, decoded) {
+    jwt.verify(req.cookie('token'), req.app.get('secretKey'), function(err, decoded) {
         if (err)
             res.json({status: "error", message: err.message, data: null});
         else {
