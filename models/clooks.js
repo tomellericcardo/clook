@@ -17,6 +17,7 @@ const ClookSchema = new Schema({
         type: Number,
         required: true
     },
+    color: String,
     started: Date
 });
 

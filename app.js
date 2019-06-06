@@ -6,8 +6,8 @@ const cookieParser = require('cookie-parser');
 const exphbs = require('express-handlebars');
 const jwt = require('jsonwebtoken');
 const mongoose = require('./config/database');
-const users = require('./routes/users');
-const clooks = require('./routes/clooks');
+const userController = require('./controllers/users');
+const clookController = require('./controllers/clooks');
 
 
 // Create and setup app
@@ -25,22 +25,46 @@ mongoose.connection.on('error', function() {
 });
 
 
+// Static files
+app.use(express.static('public'));
+
+
 // Public routes
-app.use('/users', users);
+
+app.get(['/', '/home'], function(req, res) {
+    res.redirect('/clooks');
+});
+
+app.get('/registration', function(req, res) {
+    res.render('registration');
+});
+
+app.get('/login', function(req, res) {
+    res.render('login');
+});
+
+app.post('/register', userController.create);
+app.post('/authenticate', userController.authenticate);
+
 
 // Private routes
-app.use('/clooks', validateUser, clooks);
+
+app.get('/new', validateUser, function(req, res) {
+    res.render('new');
+});
+
+app.get('/clooks', validateUser, clookController.getClooks);
+app.post('/clook', validateUser, clookController.createClook);
+app.get('/clook/:clookId', validateUser, clookController.getClook);
+app.put('/clook/:clookId', validateUser, clookController.updateClook);
+app.delete('/clook/:clookId', validateUser, clookController.deleteClook);
 
 
 // User validation
 function validateUser(req, res, next) {
     jwt.verify(req.cookies['token'], req.app.get('secretKey'), function(err, decoded) {
         if (err)
-            res.json({
-                status: 'error',
-                message: err.message,
-                data: null
-            });
+            res.status(403).redirect('/login');
         else {
             req.body.userId = decoded.id;
             next();
@@ -53,16 +77,13 @@ function validateUser(req, res, next) {
 app.use(function(req, res, next) {
     let err = new Error('Not Found');
     err.status = 404;
-    next(err);
+    next (err);
 });
 
 // Error handler
 app.use(function(err, req, res, next) {
     console.log(err);
-    if (err.status === 404)
-        res.status(404).json({message: 'Not found'});
-    else
-        res.status(500).json({message: 'Something went wrong'});
+    res.status(err.status).render('error', {status: err.status});
 });
 
 

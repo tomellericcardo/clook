@@ -17,14 +17,11 @@ module.exports = {
                         id: clook._id,
                         title: clook.title,
                         duration: clook.duration,
+                        color: clook.color,
                         started: clook.started
                     });
                 }
-                res.json({
-                    status: 'success',
-                    message: 'Clooks found successfully',
-                    data: {clooks: clooksList}
-                });
+                res.render('clooks', {clooksList: clooksList});
             }
         });
     },
@@ -35,16 +32,13 @@ module.exports = {
             author: req.body.userId,
             title: req.body.title,
             duration: req.body.duration,
+            color: req.body.color,
             started: req.body.started
         }, function (err, clookInfo) {
             if (err)
                 next(err);
             else
-                res.json({
-                    status: 'success',
-                    message: 'New clook created successfully',
-                    data: null
-                });
+                res.redirect('/clook/' + clookInfo._id);
         });
     },
 
@@ -57,11 +51,7 @@ module.exports = {
             if (err)
                 next(err);
             else
-                res.json({
-                    status: 'success',
-                    message: 'Clook found successfully',
-                    data: {clooks: clookInfo}
-                });
+                res.render('clook', clookInfo);
         });
     },
 
@@ -73,16 +63,13 @@ module.exports = {
         }, {
             title: req.body.title,
             duration: req.body.duration,
+            color: req.body.color,
             started: req.body.started
         }, function(err, clookInfo) {
             if (err)
                 next(err);
             else
-                res.json({
-                    status: 'success',
-                    message: 'Clook updated successfully',
-                    data: null
-                });
+                res.render('clook', {clookInfo: clookInfo});
         });
     },
 
@@ -92,14 +79,10 @@ module.exports = {
             _id: req.params.clookId,
             author: req.body.userId
         }, function(err, clookInfo) {
-            if(err)
+            if (err)
                 next(err);
             else
-                res.json({
-                    status: 'success',
-                    message: 'Clook deleted successfully',
-                    data:null
-                });
+                res.redirect('/clooks');
         });
     }
 

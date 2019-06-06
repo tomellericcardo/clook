@@ -16,11 +16,7 @@ module.exports = {
             if (err)
                 next(err);
             else
-                res.json({
-                    status: 'success',
-                    message: 'New user created successfully',
-                    data: null
-                });
+                res.redirect('/login');
         });
     },
 
@@ -32,20 +28,15 @@ module.exports = {
             if (err)
                 next(err);
             else {
-                if(bcrypt.compareSync(req.body.password, userInfo.password)) {
+                if (bcrypt.compareSync(req.body.password, userInfo.password)) {
                     let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
-                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).json({
-                        status: 'success',
-                        message: 'User authenticated successfully',
-                        data: null
-                    });
-                } else {
+                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).redirect('/clooks');
+                } else
                     res.json({
                         status: 'error',
                         message: 'Invalid username/password',
                         data: null
                     });
-                }
             }
         });
     },
