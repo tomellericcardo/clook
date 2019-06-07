@@ -1,16 +1,25 @@
 <link rel="stylesheet" href="/styles/clook.css">
 
-<h1>{{title}}</h1>
+<header class="w3-container w3-center">
+    <h1 class="w3-xxlarge">{{title}}</h1>
+</header>
 
-<div id="clook">
-    <div id="timer"></div>
-    <div id="center"></div>
+<div class="main">
+
+    <div class="w3-container clook-container">
+        <div class="clook">
+            <div class="timer"></div>
+            <div class="middle"></div>
+        </div>
+    </div>
+
+    <div class="w3-container">
+        <button id="delete" class="w3-btn w3-round">Delete</button>
+        <p id="message"><br></p>
+        <a href="/clooks">Go back to the clooks</a>
+    </div>
+
 </div>
-
-<button id="delete">Delete</button>
-
-<p id="message"><br></p>
-<a href="/clooks">Go back to the clooks</a>
 
 <script>
     var clookInfo = {

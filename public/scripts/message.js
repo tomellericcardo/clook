@@ -3,13 +3,13 @@ var message = {
     success: function(content) {
         var message = document.querySelector('#message');
         message.innerHTML = content;
-        message.style.color = 'green';
+        message.style.color = 'var(--success-color)';
     },
 
     error: function(content) {
         var message = document.querySelector('#message');
         message.innerHTML = content;
-        message.style.color = 'red';
+        message.style.color = 'var(--error-color)';
     }
 
 };

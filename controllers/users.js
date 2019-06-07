@@ -41,7 +41,7 @@ module.exports = {
             else if (userInfo) {
                 if (bcrypt.compareSync(req.body.password, userInfo.password)) {
                     let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
-                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).send({
+                    res.cookie('token', token, {maxAge: 86400000, httpOnly: true}).send({
                         status: 'success',
                         message: 'User authenticated successfully',
                         data: null

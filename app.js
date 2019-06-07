@@ -35,6 +35,10 @@ app.get(['/', '/home'], function(req, res) {
     res.redirect('/clooks');
 });
 
+app.get('/favicon.ico', function(req, res) {
+    res.status(204).end();
+});
+
 app.get('/registration', checkUser, function(req, res) {
     res.render('registration');
 });
@@ -75,10 +79,7 @@ function checkUser(req, res, next) {
 
 function validateUser(req, res, next) {
     jwt.verify(req.cookies['token'], req.app.get('secretKey'), function(err, decoded) {
-        if (err) {
-            console.log('here i am');
-            res.redirect('/login');
-        }
+        if (err) res.redirect('/login');
         else {
             req.body.userId = decoded.id;
             next();

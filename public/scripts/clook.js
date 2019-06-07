@@ -7,22 +7,21 @@ var clook = {
 
     init_clook: function() {
         clookInfo.started = Date.now();
-        var elapsed, sector, gradient_property;
+        var elapsed, sector, background;
+        var timer = document.querySelector('.timer');
         var interval = setInterval(function() {
             elapsed = Date.now() - clookInfo.started;
             sector = (elapsed * 100) / clookInfo.duration;
             if (sector >= 100) {
-                gradient_property = 'conic-gradient(#2c313c 100%, ';
-                gradient_property += clookInfo.color ? clookInfo.color : '#b03634';
-                gradient_property += ' 0)';
+                timer.style.background = 'var(--primary-color)';
                 clearInterval(interval);
             } else {
-                gradient_property = 'conic-gradient(';
-                gradient_property += '#2c313c ' + sector + '%, ';
-                gradient_property += clookInfo.color ? clookInfo.color : '#b03634';
-                gradient_property += ' ' + (sector + .2) + '%)';
+                background = 'conic-gradient(';
+                background += 'var(--primary-color) ' + sector + '%, ';
+                background += clookInfo.color ? clookInfo.color : 'var(--clook-color)';
+                background += ' ' + (sector + .2) + '%)';
+                timer.style.background = background;
             }
-            document.querySelector('#timer').style.background = gradient_property;
         }, 1000);
     },
 
