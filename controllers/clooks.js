@@ -9,10 +9,9 @@ module.exports = {
     getClooks: function(req, res, next) {
         let clooksList = [];
         clookModel.find({author: req.body.userId}, function(err, clooks) {
-            if (err)
-                next(err);
+            if (err) next(err);
             else {
-                for (let clook of clooks) {
+                for (let clook of clooks)
                     clooksList.push({
                         id: clook._id,
                         title: clook.title,
@@ -20,7 +19,6 @@ module.exports = {
                         color: clook.color,
                         started: clook.started
                     });
-                }
                 res.render('clooks', {clooksList: clooksList});
             }
         });
@@ -35,10 +33,8 @@ module.exports = {
             color: req.body.color,
             started: req.body.started
         }, function (err, clookInfo) {
-            if (err)
-                next(err);
-            else
-                res.redirect('/clook/' + clookInfo._id);
+            if (err) next(err);
+            else res.redirect('/clook/' + clookInfo._id);
         });
     },
 
@@ -48,10 +44,8 @@ module.exports = {
             _id: req.params.clookId,
             author: req.body.userId
         }, function(err, clookInfo) {
-            if (err)
-                next(err);
-            else
-                res.render('clook', clookInfo);
+            if (err) next(err);
+            else res.render('clook', clookInfo);
         });
     },
 
@@ -66,10 +60,8 @@ module.exports = {
             color: req.body.color,
             started: req.body.started
         }, function(err, clookInfo) {
-            if (err)
-                next(err);
-            else
-                res.render('clook', {clookInfo: clookInfo});
+            if (err) next(err);
+            else res.render('clook', clookInfo);
         });
     },
 
@@ -79,10 +71,8 @@ module.exports = {
             _id: req.params.clookId,
             author: req.body.userId
         }, function(err, clookInfo) {
-            if (err)
-                next(err);
-            else
-                res.redirect('/clooks');
+            if (err) next(err);
+            else res.redirect('/clooks');
         });
     }
 

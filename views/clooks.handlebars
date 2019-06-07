@@ -1,6 +1,11 @@
 <h1>Clooks</h1>
-<ul>
-    {{#each clooksList}}
-        <li><a href="/clook/{{id}}">{{title}}</a></li>
-    {{/each}}
-</ul>
+{{#if clooksList}}
+    <ul>
+        {{#each clooksList}}
+            <li><a href="/clook/{{id}}">{{title}}</a></li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>You don't have any clook</p>
+{{/if}}
+<a href="/new">Create a new clook</a>

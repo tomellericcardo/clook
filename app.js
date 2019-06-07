@@ -35,11 +35,11 @@ app.get(['/', '/home'], function(req, res) {
     res.redirect('/clooks');
 });
 
-app.get('/registration', function(req, res) {
+app.get('/registration', checkUser, function(req, res) {
     res.render('registration');
 });
 
-app.get('/login', function(req, res) {
+app.get('/login', checkUser, function(req, res) {
     res.render('login');
 });
 
@@ -61,10 +61,17 @@ app.delete('/clook/:clookId', validateUser, clookController.deleteClook);
 
 
 // User validation
+
+function checkUser(req, res, next) {
+    jwt.verify(req.cookies['token'], req.app.get('secretKey'), function(err, decoded) {
+        if (err) next();
+        else res.redirect('/clooks');
+    });
+}
+
 function validateUser(req, res, next) {
     jwt.verify(req.cookies['token'], req.app.get('secretKey'), function(err, decoded) {
-        if (err)
-            res.status(403).redirect('/login');
+        if (err) res.redirect('/login');
         else {
             req.body.userId = decoded.id;
             next();

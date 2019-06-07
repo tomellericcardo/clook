@@ -9,14 +9,22 @@ module.exports = {
 
     // New user creation
     create: function(req, res, next) {
-        userModel.create({
-            username: req.body.username,
-            password: req.body.password
-        }, function (err, result) {
-            if (err)
-                next(err);
-            else
-                res.redirect('/login');
+        userModel.init().then(function() {
+            userModel.create({
+                username: req.body.username,
+                password: req.body.password
+            }, function (err, userInfo) {
+                if (err)
+                    res.json({
+                        status: 'error',
+                        message: 'Username already in use',
+                        data: null
+                    });
+                else {
+                    let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
+                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).redirect('/clooks');
+                }
+            });
         });
     },
 
@@ -25,9 +33,8 @@ module.exports = {
         userModel.findOne({
             username: req.body.username
         }, function(err, userInfo) {
-            if (err)
-                next(err);
-            else {
+            if (err) next(err);
+            else if (userInfo) {
                 if (bcrypt.compareSync(req.body.password, userInfo.password)) {
                     let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
                     res.cookie('token', token, {maxAge: 86400, httpOnly: true}).redirect('/clooks');
@@ -37,7 +44,12 @@ module.exports = {
                         message: 'Invalid username/password',
                         data: null
                     });
-            }
+            } else
+                res.json({
+                    status: 'error',
+                    message: 'Invalid username/password',
+                    data: null
+                });
         });
     },
 

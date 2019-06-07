@@ -6,18 +6,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ClookSchema = new Schema({
     author: {
-        type: String,
+        type: 'String',
         required: true
     },
     title: {
-        type: String,
+        type: 'String',
         required: true
     },
     duration: {
-        type: Number,
+        type: 'Number',
         required: true
     },
-    color: String,
+    color: 'String',
     started: Date
 });
 
