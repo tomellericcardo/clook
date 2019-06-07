@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
 
-        <title>Clook</title>
+        <title>{{title}}</title>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -14,11 +14,53 @@
         <!-- STYLES -->
         <link rel="stylesheet" href="/styles/w3.css">
         <link rel="stylesheet" href="/styles/main.css">
+        {{#if sidebar}}
+            <link rel="stylesheet" href="/styles/sidebar.css">
+        {{/if}}
+        {{#each styles}}
+            <link rel="stylesheet" href="/styles/{{this}}">
+        {{/each}}
 
     </head>
     <body>
 
+        <!-- HEADER -->
+        <header class="w3-container w3-center">
+            {{#if sidebar}}
+                <button id="open-sidebar" class="w3-button">
+                    <i class="material-icons">menu</i>
+                </button>
+            {{/if}}
+            <h1 class="w3-xxlarge">{{title}}</h1>
+        </header>
+
+        {{#if sidebar}}
+            <!-- SIDEBAR -->
+            <div id="close-sidebar"></div>
+            <div id="sidebar" class="w3-sidebar w3-bar-block w3-animate-left">
+                <a href="/clooks" class="w3-bar-item">
+                    <i class="material-icons">timer</i> My clooks
+                </a>
+                <a href="/new" class="w3-bar-item">
+                    <i class="material-icons">add</i> New clook
+                </a>
+                <a href="/settings" class="w3-bar-item">
+                    <i class="material-icons">settings</i> Settings
+                </a>
+                <a href="/logout" class="w3-bar-item">
+                    <i class="material-icons">exit_to_app</i> Logout
+                </a>
+                <a href="/about" class="w3-bar-item">
+                    <i class="material-icons">info</i> About
+                </a>
+            </div>
+        {{/if}}
+
         {{{body}}}
+
+        {{#if sidebar}}
+            <script src="/scripts/sidebar.js"></script>
+        {{/if}}
 
     </body>
 </html>

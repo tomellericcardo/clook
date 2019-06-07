@@ -40,11 +40,11 @@ app.get('/favicon.ico', function(req, res) {
 });
 
 app.get('/registration', checkUser, function(req, res) {
-    res.render('registration');
+    res.render('registration', {title: 'Registration'});
 });
 
 app.get('/login', checkUser, function(req, res) {
-    res.render('login');
+    res.render('login', {title: 'Login'});
 });
 
 app.get('/logout', function(req, res) {
@@ -58,7 +58,10 @@ app.post('/authenticate', userController.authenticate);
 // Private routes
 
 app.get('/new', validateUser, function(req, res) {
-    res.render('new');
+    res.render('new', {
+        title: 'New clook',
+        sidebar: true
+    });
 });
 
 app.get('/clooks', validateUser, clookController.getClooks);
@@ -98,7 +101,10 @@ app.use(function(req, res, next) {
 // Error handler
 app.use(function(err, req, res, next) {
     console.log(err);
-    res.status(err.status).render('error', {status: err.status});
+    res.status(err.status).render('error', {
+        title: 'Error',
+        status: err.status
+    });
 });
 
 
@@ -107,4 +113,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, function() {
     console.log('Node server listening on port ' + port);
 });
-//

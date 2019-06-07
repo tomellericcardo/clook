@@ -1,10 +1,5 @@
-<link rel="stylesheet" href="/styles/clook.css">
-
-<header class="w3-container w3-center">
-    <h1 class="w3-xxlarge">{{title}}</h1>
-</header>
-
-<div class="main">
+<!-- MAIN CONTAINER -->
+<div class="w3-main">
 
     <div class="w3-container clook-container">
         <div class="clook">
@@ -16,24 +11,25 @@
     <div class="w3-container">
         <button id="delete" class="w3-btn w3-round">Delete</button>
         <p id="message"><br></p>
-        <a href="/clooks">Go back to the clooks</a>
     </div>
 
 </div>
 
+<!-- CLOOK INFO -->
 <script>
+    {{#if clook.color}}
+        document.documentElement.style.setProperty('--clook-color', '{{clook.color}}');
+    {{/if}}
     var clookInfo = {
-        id: '{{_id}}',
-        duration: {{duration}},
-        {{#if color}}
-            color: '{{color}}',
-        {{/if}}
-        {{#if started}}
-            started: '{{started}}'
+        id: '{{clook._id}}',
+        duration: {{clook.duration}},
+        {{#if clook.started}}
+            started: '{{clook.started}}'
         {{/if}}
     };
 </script>
 
+<!-- SCRIPTS -->
 <script src="/scripts/ajax.js"></script>
 <script src="/scripts/message.js"></script>
 <script src="/scripts/clook.js"></script>

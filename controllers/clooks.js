@@ -21,7 +21,11 @@ module.exports = {
                         color: clook.color,
                         started: clook.started
                     });
-                res.render('clooks', {clooksList: clooksList});
+                res.render('clooks', {
+                    title: 'Clooks',
+                    sidebar: true,
+                    clooksList: clooksList
+                });
             }
         });
     },
@@ -51,10 +55,13 @@ module.exports = {
             author: req.body.userId
         }, function(err, clookInfo) {
             if (err) next(err);
-            else {
-                console.log(clookInfo);
-                res.render('clook', clookInfo);
-            }
+            else
+                res.render('clook', {
+                    title: clookInfo.title,
+                    sidebar: true,
+                    styles: ['clook.css'],
+                    clook: clookInfo
+                });
         });
     },
 
