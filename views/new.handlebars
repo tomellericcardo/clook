@@ -1,7 +1,13 @@
 <h1>New clook</h1>
-<form action="/clook" method="post">
-    <input type="text" id="title" name="title", placeholder="Title"><br>
-    <input type="number" id="duration" name="duration", placeholder="Duration"><br>
-    <input type="text" id="color" name="color", placeholder="Color"><br>
-    <input type="submit" value="Create">
-</form>
+
+<input type="text" id="title" class="clook_field" placeholder="Title"><br>
+<input type="number" id="duration" class="clook_field" placeholder="Duration"><br>
+<input type="text" id="color" class="clook_field" placeholder="Color"><br>
+<button id="create">Create</button>
+
+<p id="message"><br></p>
+<a href="/clooks">Go back to the clooks</a>
+
+<script src="/scripts/ajax.js"></script>
+<script src="/scripts/message.js"></script>
+<script src="/scripts/new.js"></script>

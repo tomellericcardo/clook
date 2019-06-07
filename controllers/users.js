@@ -15,14 +15,18 @@ module.exports = {
                 password: req.body.password
             }, function (err, userInfo) {
                 if (err)
-                    res.json({
+                    res.send({
                         status: 'error',
                         message: 'Username already in use',
                         data: null
                     });
                 else {
                     let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
-                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).redirect('/clooks');
+                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).send({
+                        status: 'success',
+                        message: 'New user created successfully',
+                        data: null
+                    });
                 }
             });
         });
@@ -37,15 +41,19 @@ module.exports = {
             else if (userInfo) {
                 if (bcrypt.compareSync(req.body.password, userInfo.password)) {
                     let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
-                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).redirect('/clooks');
+                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).send({
+                        status: 'success',
+                        message: 'User authenticated successfully',
+                        data: null
+                    });
                 } else
-                    res.json({
+                    res.send({
                         status: 'error',
                         message: 'Invalid username/password',
                         data: null
                     });
             } else
-                res.json({
+                res.send({
                     status: 'error',
                     message: 'Invalid username/password',
                     data: null

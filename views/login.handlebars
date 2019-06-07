@@ -1,9 +1,12 @@
 <h1>Login</h1>
-<form action="/authenticate" method="post">
-    <input type="text" id="username" name="username", placeholder="Username"><br>
-    <input type="password" id="password" name="password", placeholder="Password"><br>
-    <input type="submit" value="Authenticate">
-</form>
+
+<input type="text" id="username" class="login_field" placeholder="Username"><br>
+<input type="password" id="password" class="login_field" placeholder="Password"><br>
+<button id="authenticate">Authenticate</button>
+
+<p id="message"><br></p>
 <a href="/registration">Register a new account</a>
 
+<script src="/scripts/ajax.js"></script>
+<script src="/scripts/message.js"></script>
 <script src="/scripts/login.js"></script>

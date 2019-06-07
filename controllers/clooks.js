@@ -8,7 +8,9 @@ module.exports = {
     // Get all user's clooks
     getClooks: function(req, res, next) {
         let clooksList = [];
-        clookModel.find({author: req.body.userId}, function(err, clooks) {
+        clookModel.find({
+            author: req.body.userId
+        }, function(err, clooks) {
             if (err) next(err);
             else {
                 for (let clook of clooks)
@@ -34,7 +36,11 @@ module.exports = {
             started: req.body.started
         }, function (err, clookInfo) {
             if (err) next(err);
-            else res.redirect('/clook/' + clookInfo._id);
+            else res.send({
+                status: 'success',
+                message: 'New clook created successfully',
+                data: {id: clookInfo._id}
+            });
         });
     },
 
@@ -45,14 +51,17 @@ module.exports = {
             author: req.body.userId
         }, function(err, clookInfo) {
             if (err) next(err);
-            else res.render('clook', clookInfo);
+            else {
+                console.log(clookInfo);
+                res.render('clook', clookInfo);
+            }
         });
     },
 
     // Update clook by id
     updateClook: function(req, res, next) {
         clookModel.findOneAndUpdate({
-            _id: req.params.clookId,
+            _id: req.body.clookId,
             author: req.body.userId
         }, {
             title: req.body.title,
@@ -68,11 +77,15 @@ module.exports = {
     // Delete clook by id
     deleteClook: function(req, res, next) {
         clookModel.findOneAndRemove({
-            _id: req.params.clookId,
+            _id: req.body.clookId,
             author: req.body.userId
         }, function(err, clookInfo) {
             if (err) next(err);
-            else res.redirect('/clooks');
+            else res.send({
+                status: 'success',
+                message: 'Clook deleted successfully',
+                data: null
+            });
         });
     }
 
