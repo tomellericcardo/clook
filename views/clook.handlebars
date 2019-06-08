@@ -13,23 +13,22 @@
         <p id="message"><br></p>
     </div>
 
+    <button id="start-and-stop" class="w3-btn w3-xlarge w3-circle fab">
+        <i class="material-icons">play_arrow</i>
+    </button>
+
 </div>
 
 <!-- CLOOK INFO -->
 <script>
     {{#if clook.color}}
-        document.documentElement.style.setProperty('--clook-color', '{{clook.color}}');
+    document.documentElement.style.setProperty('--clook-color', '{{clook.color}}');
     {{/if}}
     var clookInfo = {
         id: '{{clook._id}}',
         duration: {{clook.duration}},
         {{#if clook.started}}
-            started: '{{clook.started}}'
+        started: '{{clook.started}}'
         {{/if}}
     };
 </script>
-
-<!-- SCRIPTS -->
-<script src="/scripts/ajax.js"></script>
-<script src="/scripts/message.js"></script>
-<script src="/scripts/clook.js"></script>

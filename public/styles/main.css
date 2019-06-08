@@ -3,6 +3,7 @@
     --secondary-color: #2c313c;
     --button-color: #b03634;
     --link-color: #528bff;
+    --field-color: #3a3f4b;
     --text-color: #ffffff;
     --error-color: #b03634;
     --success-color: #4caf50;
@@ -37,6 +38,11 @@ button {
     padding: 10px;
 }
 
-textarea:focus, input:focus, button:focus {
+input, select {
+    background-color: var(--field-color);
+    color: var(--text-color);
+}
+
+input:focus, select:focus, button:focus {
     outline: none;
 }

@@ -11,9 +11,13 @@ var newClook = {
 
     create: function() {
         var title = document.querySelector('#title').value;
-        var duration = document.querySelector('#duration').value;
-        var color = document.querySelector('#color').value;
-        if (filled(title) && filled(duration))
+        var time = document.querySelector('#duration').value;
+        if (filled(title) && filled(time)) {
+            var color = document.querySelector('#color').value;
+            time = time.split(':');
+            var hours = parseInt(time[0]);
+            var minutes = parseInt(time[1]);
+            var duration = ((hours * 60) + minutes) * 60 * 1000;
             ajax.request('POST', '/clook', {
                 title: title,
                 duration: duration,
@@ -23,7 +27,7 @@ var newClook = {
                     window.location.href = '/clook/' + res.data.id;
                 else message.error(res.message);
             });
-        else message.error('You must fill the fields');
+        } else message.error('You must fill the fields');
     }
 
 };

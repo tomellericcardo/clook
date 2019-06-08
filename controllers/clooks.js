@@ -24,7 +24,8 @@ module.exports = {
                 res.render('clooks', {
                     title: 'Clooks',
                     sidebar: true,
-                    clooksList: clooksList
+                    clooksList: clooksList,
+                    scripts: ['clooks']
                 });
             }
         });
@@ -59,25 +60,28 @@ module.exports = {
                 res.render('clook', {
                     title: clookInfo.title,
                     sidebar: true,
-                    styles: ['clook.css'],
-                    clook: clookInfo
+                    styles: ['clook'],
+                    clook: clookInfo,
+                    scripts: ['ajax', 'message', 'clook']
                 });
         });
     },
 
     // Update clook by id
     updateClook: function(req, res, next) {
+        console.log(req.body.started);
         clookModel.findOneAndUpdate({
             _id: req.body.clookId,
             author: req.body.userId
         }, {
-            title: req.body.title,
-            duration: req.body.duration,
-            color: req.body.color,
             started: req.body.started
         }, function(err, clookInfo) {
             if (err) next(err);
-            else res.render('clook', clookInfo);
+            else res.send({
+                status: 'success',
+                message: 'Clook updated successfully',
+                data: null
+            });
         });
     },
 

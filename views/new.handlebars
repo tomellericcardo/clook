@@ -1,11 +1,15 @@
-<input type="text" id="title" class="clook_field" placeholder="Title"><br>
-<input type="number" id="duration" class="clook_field" placeholder="Duration"><br>
-<input type="text" id="color" class="clook_field" placeholder="Color"><br>
-<button id="create">Create</button>
-
-<p id="message"><br></p>
-<a href="/clooks">Go back to the clooks</a>
-
-<script src="/scripts/ajax.js"></script>
-<script src="/scripts/message.js"></script>
-<script src="/scripts/new.js"></script>
+<!-- NEW CLOOK FORM -->
+<div class="w3-container">
+    <p id="message" class=""><br></p>
+    <input type="text" id="title" class="w3-input clook_field" placeholder="Title"><br>
+    <input type="time" id="duration" class="w3-input clook_field"><br>
+    <select id="color" class="w3-select">
+        <option value="" style="background-color: var(--field-color)">Choose</option>
+        <option value="#b03634" style="background-color: #b03634">Red</option>
+        <option value="#e28e26" style="background-color: #e28e26">Orange</option>
+        <option value="#4caf50" style="background-color: #4caf50">Green</option>
+        <option value="#528bff" style="background-color: #528bff">Blue</option>
+        <option value="#c66cac" style="background-color: #c66cac">Violet</option>
+    </select><br><br>
+    <button id="create" class="w3-btn w3-round w3-right">Create</button>
+</div>

@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
-app.set('secretKey', 'MySuperSecretKey');
+app.set('secretKey', process.env.SECRET || 'devKey');
 
 // MongoDB connection error
 mongoose.connection.on('error', function() {
@@ -40,11 +40,17 @@ app.get('/favicon.ico', function(req, res) {
 });
 
 app.get('/registration', checkUser, function(req, res) {
-    res.render('registration', {title: 'Registration'});
+    res.render('registration', {
+        title: 'Registration',
+        scripts: ['ajax', 'message', 'registration']
+    });
 });
 
 app.get('/login', checkUser, function(req, res) {
-    res.render('login', {title: 'Login'});
+    res.render('login', {
+        title: 'Login',
+        scripts: ['ajax', 'message', 'login']
+    });
 });
 
 app.get('/logout', function(req, res) {
@@ -60,7 +66,8 @@ app.post('/authenticate', userController.authenticate);
 app.get('/new', validateUser, function(req, res) {
     res.render('new', {
         title: 'New clook',
-        sidebar: true
+        sidebar: true,
+        scripts: ['ajax', 'message', 'new']
     });
 });
 
