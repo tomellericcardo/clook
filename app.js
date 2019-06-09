@@ -38,19 +38,26 @@ app.get('/favicon.ico', function(req, res) {
 app.get('/registration', checkUser, function(req, res) {
     res.render('registration', {
         title: 'Registration',
-        scripts: ['ajax', 'message', 'registration']
+        scripts: ['ajax', 'registration']
     });
 });
 
 app.get('/login', checkUser, function(req, res) {
     res.render('login', {
         title: 'Login',
-        scripts: ['ajax', 'message', 'login']
+        scripts: ['ajax', 'login']
     });
 });
 
 app.get('/logout', function(req, res) {
     res.cookie('token', {maxAge: Date.now()}).redirect('/login');
+});
+
+app.get('/about', function(req, res) {
+    res.render('about', {
+        back: true,
+        title: 'About'
+    });
 });
 
 app.post('/register', userController.create);
@@ -63,7 +70,7 @@ app.get('/new', validateUser, function(req, res) {
     res.render('new', {
         title: 'New clook',
         sidebar: true,
-        scripts: ['ajax', 'message', 'new']
+        scripts: ['ajax', 'new']
     });
 });
 
@@ -105,6 +112,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
     console.log(err);
     res.status(err.status).render('error', {
+        back: true,
         title: 'Error ' + err.status,
         message: err.message
     });

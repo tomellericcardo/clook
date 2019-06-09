@@ -51,7 +51,7 @@ var clook = {
             if (res.status == 'success') {
                 if (clook.interval) clearInterval(clook.interval);
                 clook.init_clook();
-            } else message.error(res.message);
+            } else document.querySelector('#error').innerHTML = res.message;
         });
     },
 
@@ -62,7 +62,7 @@ var clook = {
             }, function(res) {
                 if (res.status == 'success')
                     window.location.href = '/';
-                else message.error(res.message);
+                else document.querySelector('#error').innerHTML = res.message;
             });
         });
     }

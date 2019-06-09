@@ -55,7 +55,7 @@ module.exports = {
                     sidebar: true,
                     styles: ['clook'],
                     clook: clookInfo,
-                    scripts: ['ajax', 'message', 'clook']
+                    scripts: ['ajax', 'clook']
                 });
         });
     },

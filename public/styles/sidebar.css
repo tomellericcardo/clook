@@ -12,21 +12,6 @@
     display: none;
 }
 
-#open-sidebar {
-    background-color: var(--primary-color)!important;
-    font-size: 20px;
-    position: absolute;
-    left: 0;
-}
-
-#open-sidebar:focus, #open-sidebar:hover {
-    color: #ffffff!important;
-}
-
-#open-sidebar i {
-    vertical-align: middle;
-}
-
 #sidebar i {
     vertical-align: middle;
     margin-right: 8px;

@@ -18,9 +18,9 @@ var login = {
                 password: password
             }, function(res) {
                 if (res.status == 'success') window.location.href = '/';
-                else message.error(res.message);
+                else document.querySelector('#error').innerHTML = res.message;
             });
-        else message.error('You must fill the fields');
+        else document.querySelector('#error').innerHTML = 'You must fill the fields';
     }
 
 };

@@ -1,12 +1,11 @@
 :root {
     --primary-color: #282c34;
     --secondary-color: #2c313c;
-    --button-color: #622dff;
-    --link-color: #528bff;
     --field-color: #3a3f4b;
+    --button-color: #3f51b5;
+    --link-color: #82abff;
     --text-color: #ffffff;
-    --error-color: #b03634;
-    --success-color: #4caf50;
+    --error-color: #ff3e3a;
 }
 
 body {
@@ -23,13 +22,26 @@ header {
     background-color: var(--primary-color);
 }
 
-a {
-    color: var(--link-color);
-    text-decoration: none;
+.menu {
+    background-color: var(--primary-color)!important;
+    color: var(--text-color)!important;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+}
+
+.menu:focus, .menu:hover {
+    background-color: var(--primary-color)!important;
+    color: var(--text-color)!important;
+}
+
+.menu i {
+    vertical-align: middle;
 }
 
 button {
     background-color: var(--button-color)!important;
+    color: #ffffff!important;
 }
 
 .fab {
@@ -42,6 +54,11 @@ button {
     padding: 10px;
 }
 
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
 input, select {
     background-color: var(--field-color);
     color: var(--text-color);
@@ -49,4 +66,8 @@ input, select {
 
 input:focus, select:focus, button:focus {
     outline: none;
+}
+
+#error {
+    color: var(--error-color);
 }

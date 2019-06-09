@@ -27,8 +27,13 @@
         <!-- HEADER -->
         <header class="w3-container w3-center">
             {{#if sidebar}}
-            <button id="open-sidebar" class="w3-button">
+            <button id="open-sidebar" class="w3-button menu">
                 <i class="material-icons">menu</i>
+            </button>
+            {{/if}}
+            {{#if back}}
+            <button class="w3-button menu" onclick="window.location.href = '/'">
+                <i class="material-icons">arrow_back</i>
             </button>
             {{/if}}
             <h1 class="w3-xxlarge">{{title}}</h1>
@@ -66,6 +71,7 @@
         </div>
 
         <!-- SCRIPTS -->
+        <script src="/scripts/theme.js"></script>
         {{#each scripts}}
         <script src="/scripts/{{this}}.js"></script>
         {{/each}}
