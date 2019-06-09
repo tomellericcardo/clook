@@ -1,0 +1,40 @@
+<!-- MAIN CONTAINER -->
+<div class="w3-main w3-row">
+
+    {{#each clooksList}}
+    <a href="/clook/{{_id}}" class="w3-col s6">
+
+        <div class="w3-container w3-center clook-container">
+            <div class="clook">
+                <div class="timer"></div>
+                <div class="middle"></div>
+            </div>
+            <h1 class="w3-large">{{title}}</h1>
+        </div>
+
+    </a>
+    {{/each}}
+
+    <button id="new" class="w3-btn w3-xlarge w3-circle fab">
+        <i class="material-icons">add</i>
+    </button>
+
+</div>
+
+<!-- CLOOK INFO -->
+<script>
+    var clooksList = [
+        {{#each clooksList}}
+        {
+            id: '{{_id}}',
+            duration: {{duration}},
+            {{#if color}}
+            color: '{{color}}',
+            {{/if}}
+            {{#if started}}
+            started: '{{started}}'
+            {{/if}}
+        },
+        {{/each}}
+    ];
+</script>

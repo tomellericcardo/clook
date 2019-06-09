@@ -8,32 +8,35 @@ var clook = {
 
     init_clook: function() {
         if (clookInfo.started) {
-            document.querySelector('#start-and-stop i').innerHTML = 'stop';
-            var started = new Date(clookInfo.started);
-            clook.interval = setInterval(function() {
-                var elapsed = Date.now() - started;
-                var sector = (elapsed * 100) / clookInfo.duration;
-                if (sector >= 100) {
-                    document.querySelector('.timer').style.background = 'var(--primary-color)';
-                    document.querySelector('#start-and-stop i').innerHTML = 'refresh';
-                    clearInterval(clook.interval);
-                } else clook.update_timer(sector);
-            }, 1000);
+            document.querySelector('.start-and-stop i').innerHTML = 'stop';
+            clook.run_clook();
+            clook.interval = setInterval(clook.run_clook, 1000);
         } else {
-            document.querySelector('#start-and-stop i').innerHTML = 'play_arrow';
-            document.querySelector('.timer').style.background = 'var(--clook-color)';
+            document.querySelector('.start-and-stop i').innerHTML = 'play_arrow';
+            document.querySelector('.timer').style.background = clookInfo.color;
         }
+    },
+
+    run_clook: function() {
+        var started = new Date(clookInfo.started);
+        var elapsed = Date.now() - started;
+        var sector = (elapsed * 100) / clookInfo.duration;
+        if (sector >= 100) {
+            document.querySelector('.timer').style.background = 'var(--primary-color)';
+            document.querySelector('.start-and-stop i').innerHTML = 'refresh';
+            clearInterval(clook.interval);
+        } else clook.update_timer(sector);
     },
 
     update_timer: function(sector) {
         var background = 'conic-gradient(';
         background += 'var(--primary-color) ' + sector + '%, ';
-        background += 'var(--clook-color) ' + (sector + .2) + '%)';
+        background += clookInfo.color + ' ' + (sector + .2) + '%)';
         document.querySelector('.timer').style.background = background;
     },
 
     init_startNstop: function() {
-        document.querySelector('#start-and-stop').addEventListener('click', function() {
+        document.querySelector('.start-and-stop').addEventListener('click', function() {
             if (clookInfo.started) clookInfo.started = undefined;
             else clookInfo.started = Date.now();
             clook.update_clook();
@@ -53,12 +56,12 @@ var clook = {
     },
 
     init_delete: function() {
-        document.querySelector('#delete').addEventListener('click', function() {
+        document.querySelector('.delete').addEventListener('click', function() {
             ajax.request('DELETE', '/clook', {
                 clookId: clookInfo.id
             }, function(res) {
                 if (res.status == 'success')
-                    window.location.href = '/clooks';
+                    window.location.href = '/';
                 else message.error(res.message);
             });
         });

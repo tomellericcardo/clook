@@ -16,10 +16,10 @@ var registration = {
         if (filled(username) && filled(password) && filled(password2)) {
             if (password === password2)
                 ajax.request('POST', '/register', {
-                    username: username,
+                    username: username.toLowerCase(),
                     password: password
                 }, function(res) {
-                    if (res.status == 'success') window.location.href = '/clooks';
+                    if (res.status == 'success') window.location.href = '/';
                     else message.error(res.message);
                 });
             else message.error('Passwords not matching');

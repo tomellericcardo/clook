@@ -13,19 +13,12 @@ module.exports = {
         }, function(err, clooks) {
             if (err) next(err);
             else {
-                for (let clook of clooks)
-                    clooksList.push({
-                        id: clook._id,
-                        title: clook.title,
-                        duration: clook.duration,
-                        color: clook.color,
-                        started: clook.started
-                    });
-                res.render('clooks', {
+                res.render('home', {
                     title: 'Clooks',
                     sidebar: true,
-                    clooksList: clooksList,
-                    scripts: ['clooks']
+                    styles: ['clook'],
+                    clooksList: clooks,
+                    scripts: ['home']
                 });
             }
         });
@@ -69,7 +62,6 @@ module.exports = {
 
     // Update clook by id
     updateClook: function(req, res, next) {
-        console.log(req.body.started);
         clookModel.findOneAndUpdate({
             _id: req.body.clookId,
             author: req.body.userId

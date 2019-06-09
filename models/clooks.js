@@ -17,7 +17,10 @@ const ClookSchema = new Schema({
         type: 'Number',
         required: true
     },
-    color: 'String',
+    color: {
+        type: 'String',
+        required: true
+    },
     started: Date
 });
 

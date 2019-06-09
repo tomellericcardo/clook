@@ -14,10 +14,10 @@ var login = {
         var password = document.querySelector('#password').value;
         if (filled(username) && filled(password))
             ajax.request('POST', '/authenticate', {
-                username: username,
+                username: username.toLowerCase(),
                 password: password
             }, function(res) {
-                if (res.status == 'success') window.location.href = '/clooks';
+                if (res.status == 'success') window.location.href = '/';
                 else message.error(res.message);
             });
         else message.error('You must fill the fields');

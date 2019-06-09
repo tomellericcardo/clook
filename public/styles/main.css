@@ -1,7 +1,7 @@
 :root {
     --primary-color: #282c34;
     --secondary-color: #2c313c;
-    --button-color: #b03634;
+    --button-color: #622dff;
     --link-color: #528bff;
     --field-color: #3a3f4b;
     --text-color: #ffffff;
@@ -13,6 +13,10 @@ body {
     background-color: var(--secondary-color);
     font-family: 'Roboto', sans-serif;
     color: var(--text-color);
+}
+
+.responsive {
+    height: 1px;
 }
 
 header {

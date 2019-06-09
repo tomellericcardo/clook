@@ -9,11 +9,11 @@
     </div>
 
     <div class="w3-container">
-        <button id="delete" class="w3-btn w3-round">Delete</button>
+        <button class="w3-btn w3-round delete">Delete</button>
         <p id="message"><br></p>
     </div>
 
-    <button id="start-and-stop" class="w3-btn w3-xlarge w3-circle fab">
+    <button class="w3-btn w3-xlarge w3-circle fab start-and-stop">
         <i class="material-icons">play_arrow</i>
     </button>
 
@@ -21,12 +21,12 @@
 
 <!-- CLOOK INFO -->
 <script>
-    {{#if clook.color}}
-    document.documentElement.style.setProperty('--clook-color', '{{clook.color}}');
-    {{/if}}
     var clookInfo = {
         id: '{{clook._id}}',
         duration: {{clook.duration}},
+        {{#if clook.color}}
+        color: '{{clook.color}}',
+        {{/if}}
         {{#if clook.started}}
         started: '{{clook.started}}'
         {{/if}}

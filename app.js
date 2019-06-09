@@ -31,10 +31,6 @@ app.use(express.static('public'));
 
 // Public routes
 
-app.get(['/', '/home'], function(req, res) {
-    res.redirect('/clooks');
-});
-
 app.get('/favicon.ico', function(req, res) {
     res.status(204).end();
 });
@@ -71,7 +67,7 @@ app.get('/new', validateUser, function(req, res) {
     });
 });
 
-app.get('/clooks', validateUser, clookController.getClooks);
+app.get(['/', '/home'], validateUser, clookController.getClooks);
 app.get('/clook/:clookId', validateUser, clookController.getClook);
 app.post('/clook', validateUser, clookController.createClook);
 app.put('/clook', validateUser, clookController.updateClook);
@@ -83,7 +79,7 @@ app.delete('/clook', validateUser, clookController.deleteClook);
 function checkUser(req, res, next) {
     jwt.verify(req.cookies['token'], req.app.get('secretKey'), function(err, decoded) {
         if (err) next();
-        else res.redirect('/clooks');
+        else res.redirect('/');
     });
 }
 
@@ -109,8 +105,8 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
     console.log(err);
     res.status(err.status).render('error', {
-        title: 'Error',
-        status: err.status
+        title: 'Error ' + err.status,
+        message: err.message
     });
 });
 

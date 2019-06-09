@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
         <!-- STYLES -->
-        <link rel="stylesheet" href="/styles/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="/styles/main.css">
         {{#if sidebar}}
         <link rel="stylesheet" href="/styles/sidebar.css">
@@ -38,7 +38,7 @@
         <!-- SIDEBAR -->
         <div id="close-sidebar"></div>
         <div id="sidebar" class="w3-sidebar w3-bar-block w3-animate-left">
-            <a href="/clooks" class="w3-bar-item">
+            <a href="/" class="w3-bar-item">
                 <i class="material-icons">timer</i> My clooks
             </a>
             <a href="/new" class="w3-bar-item">
@@ -60,7 +60,10 @@
         <script src="/scripts/sidebar.js"></script>
         {{/if}}
 
-        {{{body}}}
+        <div class="w3-third responsive">&nbsp;</div>
+        <div class="w3-third">
+            {{{body}}}
+        </div>
 
         <!-- SCRIPTS -->
         {{#each scripts}}
