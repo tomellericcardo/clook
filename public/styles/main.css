@@ -14,6 +14,10 @@ body {
     color: var(--text-color);
 }
 
+.w3-modal-content {
+    background-color: var(--secondary-color);
+}
+
 .responsive {
     height: 1px;
 }
@@ -68,6 +72,6 @@ input:focus, select:focus, button:focus {
     outline: none;
 }
 
-#error, .error {
+#error {
     color: var(--error-color);
 }

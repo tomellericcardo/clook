@@ -1,27 +1,27 @@
-<!-- SETTINGS -->
-<div class="w3-container w3-margin-top">
+<!-- PASSWORD FORM -->
+<div class="w3-container">
+    <p id="error"><br></p>
+    <input type="password" id="current_password" class="w3-input password_field" placeholder="Current password"><br>
+    <input type="password" id="new_password" class="w3-input password_field" placeholder="New password"><br>
+    <input type="password" id="new_password2" class="w3-input password_field" placeholder="Repeat password"><br>
+    <button id="change" class="w3-btn w3-round w3-right">Change</button>
+</div>
 
-    <!-- USERNAME FORM -->
-    <div id="show_username" class="w3-container w3-padding w3-center">
-        <a href="#" class="w3-large">Change username</a>
+<!-- DELETE ACCOUNT -->
+<div class="w3-container w3-margin-top w3-center">
+    <a href="#" id="delete" class="w3-large w3-text-red">Delete account</a>
+</div>
+<div class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-center">
+            <h1 class="w3-xlarge">Are you sure?</h1>
+        </header>
+        <div class="w3-container">
+            <span class="w3-button w3-display-topright close_modal">
+                <i class="material-icons">close</i>
+            </span>
+            <p>Do you really want to delete your account?</p>
+            <button id="confirm" class="w3-btn w3-round w3-margin-bottom w3-right">Confirm</button>
+        </div>
     </div>
-    <div id="username_form" class="w3-hide w3-animate-opacity form">
-        <input type="password" id="password_username" class="w3-input username_field" placeholder="Password"><br>
-        <input type="text" id="username" class="w3-input username_field" placeholder="New username"><br>
-        <button id="change_username" class="w3-btn w3-round w3-right">Change</button>
-        <p id="username_error" class="error"><br></p>
-    </div>
-
-    <!-- PASSWORD FORM -->
-    <div id="show_password" class="w3-container w3-padding w3-center">
-        <a href="#" class="w3-large">Change password</a>
-    </div>
-    <div id="password_form" class="w3-hide w3-animate-opacity form">
-        <input type="password" id="password" class="w3-input password_field" placeholder="Current password"><br>
-        <input type="password" id="new_password" class="w3-input password_field" placeholder="New password"><br>
-        <input type="password" id="new_password2" class="w3-input password_field" placeholder="Repeat password"><br>
-        <button id="change_password" class="w3-btn w3-round w3-right">Change</button>
-        <p id="password_error" class="error"><br></p>
-    </div>
-
 </div>
