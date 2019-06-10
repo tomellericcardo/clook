@@ -83,7 +83,14 @@ var clook = {
     },
 
     init_delete: function() {
-        document.querySelector('.delete').addEventListener('click', function() {
+        document.querySelector('#delete').addEventListener('click', function() {
+            document.querySelector('.w3-modal').style.display = 'block';
+        });
+        document.querySelector('#close_modal').addEventListener('click', function() {
+            document.querySelector('.w3-modal').style.display = 'none';
+        });
+        document.querySelector('#confirm').addEventListener('click', function() {
+            document.querySelector('.w3-modal').style.display = 'none';
             ajax.request('DELETE', '/clook', {
                 clookId: clookInfo.id
             }, function(res) {

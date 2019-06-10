@@ -87,8 +87,8 @@ app.get('/clook/:clookId', validateUser, clookController.getClook);
 app.post('/clook', validateUser, clookController.createClook);
 app.put('/clook', validateUser, clookController.updateClook);
 app.delete('/clook', validateUser, clookController.deleteClook);
-// app.put('/settings', validateUser, userController.updateUser);
-// app.delete('/settings', validateUser, userController.deleteUser);
+app.put('/settings', validateUser, userController.updateUser);
+app.delete('/settings', validateUser, userController.deleteUser, clookController.deleteClooks);
 
 
 // User validation

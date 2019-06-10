@@ -59,6 +59,33 @@ module.exports = {
                     data: null
                 });
         });
+    },
+
+    updateUser: function(req, res, next) {
+        userModel.findById(req.body.userId, function(err, userInfo) {
+            if (err) next(err);
+            else if (bcrypt.compareSync(req.body.password, userInfo.password)) {
+                userInfo.password = req.body.new_password;
+                userInfo.save();
+                res.send({
+                    status: 'success',
+                    message: 'User updated successfully',
+                    data: null
+                });
+            } else
+                res.send({
+                    status: 'error',
+                    message: 'Invalid password',
+                    data: null
+                });
+        });
+    },
+
+    deleteUser: function(req, res, next) {
+        userModel.findByIdAndRemove(req.body.userId, function(err, userInfo) {
+            if (err) next(err);
+            else next();
+        });
     }
 
 };

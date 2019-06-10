@@ -90,6 +90,20 @@ module.exports = {
                 data: null
             });
         });
+    },
+
+    // Delete clook by author
+    deleteClooks: function(req, res, next) {
+        clookModel.deleteMany({
+            author: req.body.userId
+        }, function(err, clookInfo) {
+            if (err) next(err);
+            else res.send({
+                status: 'success',
+                message: 'Clook deleted successfully',
+                data: null
+            });
+        });
     }
 
 };

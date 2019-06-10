@@ -21,7 +21,7 @@ var settings = {
         if (filled(current_password) && filled(new_password) && filled(new_password2)) {
             if (new_password === new_password2)
                 ajax.request('PUT', '/settings', {
-                    password: password,
+                    password: current_password,
                     new_password: new_password
                 }, function(res) {
                     if (res.status == 'success') window.location.href = '/';
@@ -35,15 +35,13 @@ var settings = {
         document.querySelector('#delete').addEventListener('click', function() {
             document.querySelector('.w3-modal').style.display = 'block';
         });
-        document.querySelectorAll('.close_modal').forEach(function(element) {
-            element.addEventListener('click', function() {
-                document.querySelector('.w3-modal').style.display = 'none';
-            });
+        document.querySelector('#close_modal').addEventListener('click', function() {
+            document.querySelector('.w3-modal').style.display = 'none';
         });
         document.querySelector('#confirm').addEventListener('click', function() {
             document.querySelector('.w3-modal').style.display = 'none';
             ajax.request('DELETE', '/settings', {}, function(res) {
-                if (res.status == 'success') window.location.href = '/';
+                if (res.status == 'success') window.location.href = '/logout';
                 else document.querySelector('#error').innerHTML = res.message;
             });
         });

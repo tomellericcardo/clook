@@ -11,13 +11,29 @@
     <div class="w3-container w3-margin-top w3-center">
         <p>Clook duration: <span id="duration"></span>
         <br>Time elapsed: <span id="elapsed"></span> (<span id="sector"></span>%)</p>
-        <a href="#" class="w3-large w3-text-red delete">Delete clook</a>
+        <a href="#" id="delete" class="w3-large w3-text-red">Delete clook</a>
     </div>
 
     <button class="w3-btn w3-xlarge w3-circle fab start-and-stop">
         <i class="material-icons">play_arrow</i>
     </button>
 
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-center">
+            <h1 class="w3-xlarge">Are you sure?</h1>
+        </header>
+        <div class="w3-container">
+            <span id="close_modal" class="w3-button w3-display-topright">
+                <i class="material-icons">close</i>
+            </span>
+            <p>Do you really want to delete this clook?</p>
+            <button id="confirm" class="w3-btn w3-round w3-margin-bottom w3-right">Confirm</button>
+        </div>
+    </div>
 </div>
 
 <!-- CLOOK INFO -->
