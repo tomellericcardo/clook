@@ -1,6 +1,6 @@
 <!-- NEW CLOOK FORM -->
 <div class="w3-container">
-    <p id="error"><br></p>
+    <p id="error" class="w3-text-red"><br></p>
     <input type="text" id="title" class="w3-input clook_field" placeholder="Title"><br>
     <input type="time" value="01:00" id="duration" class="w3-input clook_field"><br>
     <select id="color" class="w3-select">
@@ -10,5 +10,7 @@
         <option value="#528bff" style="color: #528bff">Blue</option>
         <option value="#c66cac" style="color: #c66cac">Violet</option>
     </select><br><br>
+    <input type="checkbox" id="start" name="start" class="w3-check" checked="checked">
+    <label for="start">Start now</label>
     <button id="create" class="w3-btn w3-round w3-right">Create</button>
 </div>

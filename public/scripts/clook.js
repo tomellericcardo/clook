@@ -14,6 +14,9 @@ var clook = {
         } else {
             document.querySelector('.start-and-stop i').innerHTML = 'play_arrow';
             document.querySelector('.timer').style.background = clookInfo.color;
+            document.querySelector('#duration').innerHTML = clook.format_duration(clookInfo.duration);
+            document.querySelector('#elapsed').innerHTML = '00h 00m';
+            document.querySelector('#sector').innerHTML = 0;
         }
     },
 
@@ -21,11 +24,35 @@ var clook = {
         var started = new Date(clookInfo.started);
         var elapsed = Date.now() - started;
         var sector = (elapsed * 100) / clookInfo.duration;
+        document.querySelector('#duration').innerHTML = clook.format_duration(clookInfo.duration);
+        document.querySelector('#elapsed').innerHTML = clook.format_elapsed(elapsed);
+        document.querySelector('#sector').innerHTML = Math.floor(sector);
         if (sector >= 100) {
             document.querySelector('.timer').style.background = 'var(--primary-color)';
             document.querySelector('.start-and-stop i').innerHTML = 'refresh';
+            document.querySelector('#duration').innerHTML = clook.format_duration(clookInfo.duration);
+            document.querySelector('#elapsed').innerHTML = clook.format_duration(clookInfo.duration);
+            document.querySelector('#sector').innerHTML = 100;
             clearInterval(clook.interval);
         } else clook.update_timer(sector);
+    },
+
+    format_duration: function(time) {
+        time = Math.floor(time / 1000);
+        var hours   = Math.floor(time / 3600);
+        var minutes = Math.floor((time - (hours * 3600)) / 60);
+        if (minutes < 10) minutes = '0' + minutes;
+        return hours + 'h ' + minutes + 'm';
+    },
+
+    format_elapsed: function(time) {
+        time = Math.floor(time / 1000);
+        var hours   = Math.floor(time / 3600);
+        var minutes = Math.floor((time - (hours * 3600)) / 60);
+        var seconds = time - (hours * 3600) - (minutes * 60);
+        if (minutes < 10) minutes = '0' + minutes;
+        if (seconds < 10) seconds = '0' + seconds;
+        return hours + 'h ' + minutes + 'm ' + seconds + 's';
     },
 
     update_timer: function(sector) {

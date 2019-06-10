@@ -1,7 +1,7 @@
 // Required modules
 const mongoose = require('mongoose');
 
-// Set up mongoose
+// Setup mongoose
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);

@@ -14,20 +14,27 @@ var newClook = {
         var time = document.querySelector('#duration').value;
         if (filled(title) && filled(time)) {
             var color = document.querySelector('#color').value;
-            time = time.split(':');
-            var hours = parseInt(time[0]);
-            var minutes = parseInt(time[1]);
-            var duration = ((hours * 60) + minutes) * 60 * 1000;
-            ajax.request('POST', '/clook', {
+            var duration = newClook.duration(time);
+            var request = {
                 title: title,
                 duration: duration,
                 color: color
-            }, function(res) {
+            };
+            if (document.querySelector('#start').checked)
+                request.started = Date.now();
+            ajax.request('POST', '/clook', request, function(res) {
                 if (res.status == 'success')
                     window.location.href = '/clook/' + res.data.id;
                 else document.querySelector('#error').innerHTML = res.message;
             });
         } else document.querySelector('#error').innerHTML = 'You must fill the fields';
+    },
+
+    duration: function(time) {
+        time = time.split(':');
+        let hours = parseInt(time[0]);
+        let minutes = parseInt(time[1]);
+        return ((hours * 60) + minutes) * 60 * 1000;
     }
 
 };
