@@ -68,9 +68,17 @@ app.post('/authenticate', userController.authenticate);
 
 app.get('/new', validateUser, function(req, res) {
     res.render('new', {
+        back: true,
         title: 'New clook',
-        sidebar: true,
         scripts: ['ajax', 'new']
+    });
+});
+
+app.get('/settings', validateUser, function(req, res) {
+    res.render('settings', {
+        back: true,
+        title: 'Settings',
+        scripts: ['ajax', 'settings']
     });
 });
 
@@ -79,6 +87,8 @@ app.get('/clook/:clookId', validateUser, clookController.getClook);
 app.post('/clook', validateUser, clookController.createClook);
 app.put('/clook', validateUser, clookController.updateClook);
 app.delete('/clook', validateUser, clookController.deleteClook);
+// app.put('/settings', validateUser, userController.updateUser);
+// app.delete('/settings', validateUser, userController.deleteUser);
 
 
 // User validation

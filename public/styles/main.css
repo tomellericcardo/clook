@@ -68,6 +68,6 @@ input:focus, select:focus, button:focus {
     outline: none;
 }
 
-#error {
+#error, .error {
     color: var(--error-color);
 }

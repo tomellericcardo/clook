@@ -43,35 +43,23 @@
         <!-- SIDEBAR -->
         <div id="close-sidebar"></div>
         <div id="sidebar" class="w3-sidebar w3-bar-block w3-animate-left">
-            <a href="/" class="w3-bar-item">
-                <i class="material-icons">timer</i> My clooks
-            </a>
-            <a href="/new" class="w3-bar-item">
-                <i class="material-icons">add</i> New clook
-            </a>
-            <a href="/settings" class="w3-bar-item">
-                <i class="material-icons">settings</i> Settings
-            </a>
-            <a href="/logout" class="w3-bar-item">
-                <i class="material-icons">exit_to_app</i> Logout
-            </a>
-            <a href="/about" class="w3-bar-item">
-                <i class="material-icons">info</i> About
-            </a>
+            <a href="/" class="w3-bar-item"><i class="material-icons">timer</i> My clooks</a>
+            <a href="/new" class="w3-bar-item"><i class="material-icons">add</i> New clook</a>
+            <a href="/settings" class="w3-bar-item"><i class="material-icons">settings</i> Settings</a>
+            <a href="/logout" class="w3-bar-item"><i class="material-icons">exit_to_app</i> Logout</a>
+            <a href="/about" class="w3-bar-item w3-bottom"><i class="material-icons">info</i> About</a>
         </div>
         {{/if}}
 
-        {{#if sidebar}}
-        <script src="/scripts/sidebar.js"></script>
-        {{/if}}
-
-        <div class="w3-third responsive">&nbsp;</div>
+        <div class="w3-third responsive"></div>
         <div class="w3-third">
             {{{body}}}
         </div>
 
         <!-- SCRIPTS -->
-        <script src="/scripts/theme.js"></script>
+        {{#if sidebar}}
+        <script src="/scripts/sidebar.js"></script>
+        {{/if}}
         {{#each scripts}}
         <script src="/scripts/{{this}}.js"></script>
         {{/each}}

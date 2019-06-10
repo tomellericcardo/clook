@@ -16,3 +16,7 @@
     vertical-align: middle;
     margin-right: 8px;
 }
+
+#sidebar .w3-bottom {
+    width: 200px;
+}

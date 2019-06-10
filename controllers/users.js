@@ -59,6 +59,6 @@ module.exports = {
                     data: null
                 });
         });
-    },
+    }
 
 };

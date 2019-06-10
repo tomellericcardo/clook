@@ -14,8 +14,8 @@ module.exports = {
             if (err) next(err);
             else {
                 res.render('home', {
-                    title: 'Clooks',
                     sidebar: true,
+                    title: 'Clooks',
                     styles: ['clook'],
                     clooksList: clooks,
                     scripts: ['home']
@@ -51,8 +51,8 @@ module.exports = {
             if (err) next(err);
             else
                 res.render('clook', {
+                    back: true,
                     title: clookInfo.title,
-                    sidebar: true,
                     styles: ['clook'],
                     clook: clookInfo,
                     scripts: ['ajax', 'clook']
