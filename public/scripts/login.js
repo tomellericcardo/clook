@@ -13,11 +13,11 @@ var login = {
         var username = document.querySelector('#username').value;
         var password = document.querySelector('#password').value;
         if (filled(username) && filled(password))
-            ajax.request('POST', '/authenticate', {
+            ajax('POST', '/users/authenticate', {
                 username: username.toLowerCase(),
                 password: password
             }, function(res) {
-                if (res.status == 'success') window.location.href = '/';
+                if (res.status == 'success') window.location.href = '/clooks';
                 else document.querySelector('#error').innerHTML = res.message;
             });
         else document.querySelector('#error').innerHTML = 'You must fill the fields';

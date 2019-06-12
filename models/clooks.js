@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 
 
 // Clook schema
-const Schema = mongoose.Schema;
-const ClookSchema = new Schema({
+const clook_schema = new mongoose.Schema({
     author: {
         type: 'String',
         required: true
@@ -26,4 +25,4 @@ const ClookSchema = new Schema({
 
 
 // Export module
-module.exports = mongoose.model('Clook', ClookSchema)
+module.exports = mongoose.model('clook', clook_schema);

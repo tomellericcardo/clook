@@ -1,8 +1,8 @@
 <!-- MAIN CONTAINER -->
 <div class="w3-main w3-row">
 
-    {{#each clooksList}}
-    <a href="/clook/{{_id}}" class="w3-col s6">
+    {{#each clooks}}
+    <a href="/clooks/{{_id}}" class="w3-col s6">
 
         <div class="w3-container w3-center clook-container">
             <div class="clook">
@@ -27,8 +27,8 @@
 
 <!-- CLOOK INFO -->
 <script>
-    var clooksList = [
-        {{#each clooksList}}
+    var clooks_list = [
+        {{#each clooks}}
         {
             id: '{{_id}}',
             duration: {{duration}},

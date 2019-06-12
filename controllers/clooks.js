@@ -1,23 +1,21 @@
 // Required modules
-const clookModel = require('../models/clooks');
+const clook_model = require('../models/clooks');
 
 
-// Export module
-module.exports = {
+var clook_controller = {
 
     // Get all user's clooks
-    getClooks: function(req, res, next) {
-        let clooksList = [];
-        clookModel.find({
-            author: req.body.userId
-        }, function(err, clooks) {
+    get_clooks: function(req, res, next) {
+        clook_model.find({
+            author: req.body.user_id
+        }, function(err, clook_documents) {
             if (err) next(err);
             else {
                 res.render('home', {
                     sidebar: true,
                     title: 'Clooks',
                     styles: ['clook'],
-                    clooksList: clooks,
+                    clooks: clook_documents,
                     scripts: ['home']
                 });
             }
@@ -25,85 +23,98 @@ module.exports = {
     },
 
     // New clook creation
-    createClook: function(req, res, next) {
-        clookModel.create({
-            author: req.body.userId,
+    create_clook: function(req, res, next) {
+        clook_model.create({
+            author: req.body.user_id,
             title: req.body.title,
             duration: req.body.duration,
             color: req.body.color,
             started: req.body.started
-        }, function (err, clookInfo) {
+        }, function (err, clook_document) {
             if (err) next(err);
-            else res.send({
-                status: 'success',
-                message: 'New clook created successfully',
-                data: {id: clookInfo._id}
-            });
+            else {
+                res.send({
+                    status: 'success',
+                    message: 'New clook created successfully',
+                    data: {id: clook_document._id}
+                });
+            }
         });
     },
 
     // Get clook by id
-    getClook: function(req, res, next) {
-        clookModel.findOne({
-            _id: req.params.clookId,
-            author: req.body.userId
-        }, function(err, clookInfo) {
+    get_clook: function(req, res, next) {
+        clook_model.findOne({
+            _id: req.params.clook_id,
+            author: req.body.user_id
+        }, function(err, clook_document) {
             if (err) next(err);
-            else
+            else {
                 res.render('clook', {
                     back: true,
-                    title: clookInfo.title,
+                    title: clook_document.title,
                     styles: ['clook'],
-                    clook: clookInfo,
+                    clook: clook_document,
                     scripts: ['ajax', 'clook']
                 });
+            }
         });
     },
 
     // Update clook by id
-    updateClook: function(req, res, next) {
-        clookModel.findOneAndUpdate({
-            _id: req.body.clookId,
-            author: req.body.userId
+    update_clook: function(req, res, next) {
+        clook_model.findOneAndUpdate({
+            _id: req.body.clook_id,
+            author: req.body.user_id
         }, {
             started: req.body.started
-        }, function(err, clookInfo) {
+        }, function(err, clook_document) {
             if (err) next(err);
-            else res.send({
-                status: 'success',
-                message: 'Clook updated successfully',
-                data: null
-            });
+            else {
+                res.send({
+                    status: 'success',
+                    message: 'Clook updated successfully',
+                    data: null
+                });
+            }
         });
     },
 
     // Delete clook by id
-    deleteClook: function(req, res, next) {
-        clookModel.findOneAndRemove({
-            _id: req.body.clookId,
-            author: req.body.userId
-        }, function(err, clookInfo) {
+    delete_clook: function(req, res, next) {
+        clook_model.findOneAndRemove({
+            _id: req.body.clook_id,
+            author: req.body.user_id
+        }, function(err, clook_document) {
             if (err) next(err);
-            else res.send({
-                status: 'success',
-                message: 'Clook deleted successfully',
-                data: null
-            });
+            else {
+                res.send({
+                    status: 'success',
+                    message: 'Clook deleted successfully',
+                    data: null
+                });
+            }
         });
     },
 
-    // Delete clook by author
-    deleteClooks: function(req, res, next) {
-        clookModel.deleteMany({
-            author: req.body.userId
-        }, function(err, clookInfo) {
+    // Delete clooks by author
+    delete_clooks: function(req, res, next) {
+        clook_model.deleteMany({
+            author: req.body.user_id
+        }, function(err, clook_document) {
             if (err) next(err);
-            else res.send({
-                status: 'success',
-                message: 'Clook deleted successfully',
-                data: null
-            });
+            else {
+                res.send({
+                    status: 'success',
+                    message: 'Clook deleted successfully',
+                    data: null
+                });
+            }
         });
     }
 
 };
+
+
+// Export module
+module.exports = clook_controller;

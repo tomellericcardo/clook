@@ -15,11 +15,11 @@ var registration = {
         var password2 = document.querySelector('#password2').value;
         if (filled(username) && filled(password) && filled(password2)) {
             if (password === password2)
-                ajax.request('POST', '/register', {
+                ajax('POST', '/users/register', {
                     username: username.toLowerCase(),
                     password: password
                 }, function(res) {
-                    if (res.status == 'success') window.location.href = '/';
+                    if (res.status == 'success') window.location.href = '/clooks';
                     else document.querySelector('#error').innerHTML = res.message;
                 });
             else document.querySelector('#error').innerHTML = 'Passwords not matching';

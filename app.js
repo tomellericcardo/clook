@@ -1,58 +1,33 @@
 // Required modules
 const express = require('express');
 const logger = require('morgan');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+const cookie_parser = require('cookie-parser');
 const exphbs = require('express-handlebars');
-const jwt = require('jsonwebtoken');
-const mongoose = require('./config/database');
-const userController = require('./controllers/users');
-const clookController = require('./controllers/clooks');
+const mongoose = require('./configurations/database');
+const user_routes = require('./routes/users');
+const clook_routes = require('./routes/clooks');
 
 
 // Create and setup app
 const app = express();
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(express.json());
+app.use(cookie_parser());
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
-app.set('secretKey', process.env.SECRET || 'devKey');
-
-// MongoDB connection error
-mongoose.connection.on('error', function() {
-    console.error.bind(console, 'MongoDB connection error: ');
-});
+app.set('secret', process.env.SECRET || 'dev');
 
 
 // Static files
 app.use(express.static('public'));
 
+// Users routes
+app.use('/users', user_routes);
 
-// Public routes
+// Clooks routes
+app.use('/clooks', clook_routes);
 
-app.get('/favicon.ico', function(req, res) {
-    res.status(204).end();
-});
-
-app.get('/registration', checkUser, function(req, res) {
-    res.render('registration', {
-        title: 'Registration',
-        scripts: ['ajax', 'registration']
-    });
-});
-
-app.get('/login', checkUser, function(req, res) {
-    res.render('login', {
-        title: 'Login',
-        scripts: ['ajax', 'login']
-    });
-});
-
-app.get('/logout', function(req, res) {
-    res.cookie('token', {maxAge: Date.now()}).redirect('/login');
-});
-
+// About page
 app.get('/about', function(req, res) {
     res.render('about', {
         back: true,
@@ -60,55 +35,10 @@ app.get('/about', function(req, res) {
     });
 });
 
-app.post('/register', userController.create);
-app.post('/authenticate', userController.authenticate);
-
-
-// Private routes
-
-app.get('/new', validateUser, function(req, res) {
-    res.render('new', {
-        back: true,
-        title: 'New clook',
-        scripts: ['ajax', 'new']
-    });
+// Root redirect
+app.get('/', function(req, res) {
+    res.redirect('/clooks');
 });
-
-app.get('/settings', validateUser, function(req, res) {
-    res.render('settings', {
-        back: true,
-        title: 'Settings',
-        scripts: ['ajax', 'settings']
-    });
-});
-
-app.get(['/', '/home'], validateUser, clookController.getClooks);
-app.get('/clook/:clookId', validateUser, clookController.getClook);
-app.post('/clook', validateUser, clookController.createClook);
-app.put('/clook', validateUser, clookController.updateClook);
-app.delete('/clook', validateUser, clookController.deleteClook);
-app.put('/settings', validateUser, userController.updateUser);
-app.delete('/settings', validateUser, userController.deleteUser, clookController.deleteClooks);
-
-
-// User validation
-
-function checkUser(req, res, next) {
-    jwt.verify(req.cookies['token'], req.app.get('secretKey'), function(err, decoded) {
-        if (err) next();
-        else res.redirect('/');
-    });
-}
-
-function validateUser(req, res, next) {
-    jwt.verify(req.cookies['token'], req.app.get('secretKey'), function(err, decoded) {
-        if (err) res.redirect('/login');
-        else {
-            req.body.userId = decoded.id;
-            next();
-        }
-    });
-}
 
 
 // Detect 404 error

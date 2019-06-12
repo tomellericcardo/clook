@@ -1,91 +1,132 @@
 // Required modules
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const userModel = require('../models/users');
+const user_model = require('../models/users');
 
 
-// Export module
-module.exports = {
+var user_controller = {
 
     // New user creation
-    create: function(req, res, next) {
-        userModel.init().then(function() {
-            userModel.create({
+    create_user: function(req, res, next) {
+        user_model.init().then(function() {
+            user_model.create({
                 username: req.body.username,
                 password: req.body.password
-            }, function (err, userInfo) {
-                if (err)
+            }, function(err, user_document) {
+                if (err) {
                     res.send({
                         status: 'error',
                         message: 'Username already in use',
                         data: null
                     });
-                else {
-                    let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
-                    res.cookie('token', token, {maxAge: 86400, httpOnly: true}).send({
-                        status: 'success',
-                        message: 'New user created successfully',
-                        data: null
-                    });
+                } else {
+                    user_controller.create_callback(req, res, user_document);
                 }
             });
         });
     },
 
+    // New user callback
+    create_callback: function(req, res, user_document) {
+        let token = jwt.sign(
+            {id: user_document._id},
+            req.app.get('secret'),
+            {expiresIn: 86400}
+        );
+        res.cookie('token', token, {
+            maxAge: 86400,
+            httpOnly: true
+        }).send({
+            status: 'success',
+            message: 'New user created successfully',
+            data: null
+        });
+    },
+
     // User authentication
-    authenticate: function(req, res, next) {
-        userModel.findOne({
+    authenticate_user: function(req, res, next) {
+        user_model.findOne({
             username: req.body.username
-        }, function(err, userInfo) {
+        }, function(err, user_document) {
             if (err) next(err);
-            else if (userInfo) {
-                if (bcrypt.compareSync(req.body.password, userInfo.password)) {
-                    let token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: 86400});
-                    res.cookie('token', token, {maxAge: 86400000, httpOnly: true}).send({
-                        status: 'success',
-                        message: 'User authenticated successfully',
-                        data: null
-                    });
-                } else
-                    res.send({
-                        status: 'error',
-                        message: 'Invalid username/password',
-                        data: null
-                    });
-            } else
+            else if (!user_document) {
                 res.send({
                     status: 'error',
                     message: 'Invalid username/password',
                     data: null
                 });
+            } else {
+                user_controller.authenticate_callback(req, res, user_document);
+            }
         });
     },
 
-    updateUser: function(req, res, next) {
-        userModel.findById(req.body.userId, function(err, userInfo) {
+    // User authentication callback
+    authenticate_callback: function(req, res, user_document) {
+        if (bcrypt.compareSync(
+            req.body.password,
+            user_document.password
+        )) {
+            let token = jwt.sign(
+                {id: user_document._id},
+                req.app.get('secret'),
+                {expiresIn: 86400}
+            );
+            res.cookie('token', token, {
+                maxAge: 86400000,
+                httpOnly: true}
+            ).send({
+                status: 'success',
+                message: 'User authenticated successfully',
+                data: null
+            });
+        } else {
+            res.send({
+                status: 'error',
+                message: 'Invalid username/password',
+                data: null
+            });
+        }
+    },
+
+    // Update user
+    update_user: function(req, res, next) {
+        user_model.findById(req.body.user_id, function(err, user_document) {
             if (err) next(err);
-            else if (bcrypt.compareSync(req.body.password, userInfo.password)) {
-                userInfo.password = req.body.new_password;
-                userInfo.save();
+            else if (bcrypt.compareSync(
+                req.body.password,
+                user_document.password
+            )) {
+                user_document.password = req.body.new_password;
+                user_document.save();
                 res.send({
                     status: 'success',
                     message: 'User updated successfully',
                     data: null
                 });
-            } else
+            } else {
                 res.send({
                     status: 'error',
                     message: 'Invalid password',
                     data: null
                 });
+            }
         });
     },
 
-    deleteUser: function(req, res, next) {
-        userModel.findByIdAndRemove(req.body.userId, function(err, userInfo) {
+    // Delete user
+    delete_user: function(req, res, next) {
+        user_model.findByIdAndRemove(req.body.user_id, function(err, user_document) {
             if (err) next(err);
-            else next();
+            else {
+                res.cookie('token', {maxAge: Date.now()});
+                next();
+            }
         });
     }
 
 };
+
+
+// Export module
+module.exports = user_controller;

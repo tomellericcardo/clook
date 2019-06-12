@@ -22,9 +22,9 @@ var newClook = {
             };
             if (document.querySelector('#start').checked)
                 request.started = Date.now();
-            ajax.request('POST', '/clook', request, function(res) {
+            ajax('POST', '/clooks', request, function(res) {
                 if (res.status == 'success')
-                    window.location.href = '/clook/' + res.data.id;
+                    window.location.href = '/clooks/' + res.data.id;
                 else document.querySelector('#error').innerHTML = res.message;
             });
         } else document.querySelector('#error').innerHTML = 'You must fill the fields';

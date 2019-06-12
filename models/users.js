@@ -4,8 +4,7 @@ const bcrypt = require('bcrypt');
 
 
 // User schema
-const Schema = mongoose.Schema;
-const UserSchema = new Schema({
+const user_schema = new mongoose.Schema({
     username: {
         type: 'String',
         required: true,
@@ -18,11 +17,11 @@ const UserSchema = new Schema({
 });
 
 // Password hashing
-UserSchema.pre('save', function(next) {
+user_schema.pre('save', function(next) {
     this.password = bcrypt.hashSync(this.password, 10);
     next();
 });
 
 
 // Export module
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('user', user_schema);

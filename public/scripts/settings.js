@@ -20,11 +20,11 @@ var settings = {
         var new_password2 = document.querySelector('#new_password2').value;
         if (filled(current_password) && filled(new_password) && filled(new_password2)) {
             if (new_password === new_password2)
-                ajax.request('PUT', '/settings', {
+                ajax('PUT', '/users', {
                     password: current_password,
                     new_password: new_password
                 }, function(res) {
-                    if (res.status == 'success') window.location.href = '/';
+                    if (res.status == 'success') window.location.href = '/clooks';
                     else document.querySelector('#error').innerHTML = res.message;
                 });
             else document.querySelector('#error').innerHTML = 'New passwords not matching';
@@ -40,8 +40,8 @@ var settings = {
         });
         document.querySelector('#confirm').addEventListener('click', function() {
             document.querySelector('.w3-modal').style.display = 'none';
-            ajax.request('DELETE', '/settings', {}, function(res) {
-                if (res.status == 'success') window.location.href = '/logout';
+            ajax('DELETE', '/users', {}, function(res) {
+                if (res.status == 'success') window.location.href = '/users/login';
                 else document.querySelector('#error').innerHTML = res.message;
             });
         });
