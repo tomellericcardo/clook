@@ -1,5 +1,7 @@
+// Home page
 var home = {
 
+    // Initialization
     init: function() {
         home.init_new();
         home.interval = [];
@@ -7,12 +9,14 @@ var home = {
             home.init_clook(i);
     },
 
+    // New clook button initialization
     init_new: function() {
         document.querySelector('#new').addEventListener('click', function() {
             window.location.href = '/clooks/new';
         });
     },
 
+    // Clook initialization
     init_clook: function(i) {
         if (clooks_list[i].started) {
             home.run_clook(i);
@@ -23,6 +27,7 @@ var home = {
             document.querySelectorAll('.timer')[i].style.background = clooks_list[i].color;
     },
 
+    // Run clook
     run_clook: function(i) {
         var started = new Date(clooks_list[i].started)
         var elapsed = Date.now() - started;
@@ -33,6 +38,7 @@ var home = {
         } else home.update_timer(i, sector);
     },
 
+    // Update timer
     update_timer: function(i, sector) {
         var background = 'conic-gradient(';
         background += 'var(--primary-color) ' + sector + '%, ';
@@ -43,4 +49,5 @@ var home = {
 };
 
 
+// Initialize when page is ready
 document.addEventListener('DOMContentLoaded', home.init());

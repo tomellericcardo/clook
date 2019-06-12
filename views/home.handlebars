@@ -2,8 +2,9 @@
 <div class="w3-main w3-row">
 
     {{#each clooks}}
-    <a href="/clooks/{{_id}}" class="w3-col s6">
 
+    <!-- CLOOK -->
+    <a href="/clooks/{{_id}}" class="w3-col s6">
         <div class="w3-container w3-center clook-container">
             <div class="clook">
                 <div class="timer"></div>
@@ -11,14 +12,18 @@
             </div>
             <h1 class="w3-large">{{title}}</h1>
         </div>
-
     </a>
+
     {{else}}
+
+    <!-- EMPTY LIST -->
     <div class="w3-container w3-margin-top w3-center">
         <p>You don't have any clook</p>
     </div>
+
     {{/each}}
 
+    <!-- NEW CLOOK BUTTON -->
     <button id="new" class="w3-btn w3-xlarge w3-circle fab">
         <i class="material-icons">add</i>
     </button>

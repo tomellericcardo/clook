@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const user_model = require('../models/users');
 
 
+// Controller module
 var user_controller = {
 
     // New user creation

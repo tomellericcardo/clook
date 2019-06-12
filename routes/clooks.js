@@ -1,6 +1,6 @@
 // Required modules
 const express = require('express');
-const auth = require('../middlewares/authentication');
+const auth = require('../middlewares/auth');
 const clook_controller = require('../controllers/clooks');
 
 // Express router

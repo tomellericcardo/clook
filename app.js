@@ -3,7 +3,7 @@ const express = require('express');
 const logger = require('morgan');
 const cookie_parser = require('cookie-parser');
 const exphbs = require('express-handlebars');
-const mongoose = require('./configurations/database');
+const mongoose = require('./config/database');
 const user_routes = require('./routes/users');
 const clook_routes = require('./routes/clooks');
 

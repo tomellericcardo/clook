@@ -1,5 +1,7 @@
+// Login page
 var login = {
 
+    // Authenticate button initialization
     init_authenticate: function() {
         document.querySelector('#authenticate').addEventListener('click', login.authenticate);
         document.querySelectorAll('.login_field').forEach(function(element) {
@@ -9,6 +11,7 @@ var login = {
         });
     },
 
+    // Authenticate user
     authenticate: function() {
         var username = document.querySelector('#username').value;
         var password = document.querySelector('#password').value;
@@ -19,11 +22,12 @@ var login = {
             }, function(res) {
                 if (res.status == 'success') window.location.href = '/clooks';
                 else document.querySelector('#error').innerHTML = res.message;
-            });
+            }, document.querySelector('#authenticate'));
         else document.querySelector('#error').innerHTML = 'You must fill the fields';
     }
 
 };
 
 
+// Initialize when page is ready
 document.addEventListener('DOMContentLoaded', login.init_authenticate());

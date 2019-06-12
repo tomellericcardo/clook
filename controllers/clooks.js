@@ -2,6 +2,7 @@
 const clook_model = require('../models/clooks');
 
 
+// Controller module
 var clook_controller = {
 
     // Get all user's clooks

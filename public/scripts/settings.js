@@ -1,10 +1,13 @@
+// User settings page
 var settings = {
 
+    // Initialization
     init: function() {
         settings.init_change();
         settings.init_delete();
     },
 
+    // Change password button initialization
     init_change: function() {
         document.querySelector('#change').addEventListener('click', settings.change);
         document.querySelectorAll('.password_field').forEach(function(element) {
@@ -14,6 +17,7 @@ var settings = {
         });
     },
 
+    // Change password
     change: function() {
         var current_password = document.querySelector('#current_password').value;
         var new_password = document.querySelector('#new_password').value;
@@ -26,11 +30,12 @@ var settings = {
                 }, function(res) {
                     if (res.status == 'success') window.location.href = '/clooks';
                     else document.querySelector('#error').innerHTML = res.message;
-                });
+                }, document.querySelector('#change'));
             else document.querySelector('#error').innerHTML = 'New passwords not matching';
         } else document.querySelector('#error').innerHTML = 'You must fill the fields';
     },
 
+    // Delete user button initialization
     init_delete: function() {
         document.querySelector('#delete').addEventListener('click', function() {
             document.querySelector('.w3-modal').style.display = 'block';
@@ -39,15 +44,14 @@ var settings = {
             document.querySelector('.w3-modal').style.display = 'none';
         });
         document.querySelector('#confirm').addEventListener('click', function() {
-            document.querySelector('.w3-modal').style.display = 'none';
             ajax('DELETE', '/users', {}, function(res) {
-                if (res.status == 'success') window.location.href = '/users/login';
-                else document.querySelector('#error').innerHTML = res.message;
-            });
+                window.location.href = '/users/login';
+            }, document.querySelector('#confirm'));
         });
     }
 
 };
 
 
+// Initialize when page is ready
 document.addEventListener('DOMContentLoaded', settings.init());

@@ -1,5 +1,7 @@
+// Registration page
 var registration = {
 
+    // Register button initializaion
     init_register: function() {
         document.querySelector('#register').addEventListener('click', registration.register);
         document.querySelectorAll('.registration_field').forEach(function(element) {
@@ -9,6 +11,7 @@ var registration = {
         });
     },
 
+    // Register user
     register: function() {
         var username = document.querySelector('#username').value;
         var password = document.querySelector('#password').value;
@@ -21,7 +24,7 @@ var registration = {
                 }, function(res) {
                     if (res.status == 'success') window.location.href = '/clooks';
                     else document.querySelector('#error').innerHTML = res.message;
-                });
+                }, document.querySelector('#register'));
             else document.querySelector('#error').innerHTML = 'Passwords not matching';
         } else document.querySelector('#error').innerHTML = 'You must fill the fields';
     }
@@ -29,4 +32,5 @@ var registration = {
 };
 
 
+// Initialize when page is ready
 document.addEventListener('DOMContentLoaded', registration.init_register());

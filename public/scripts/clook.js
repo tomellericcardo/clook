@@ -1,11 +1,14 @@
+// Clook page
 var clook = {
 
+    // Initialization
     init: function() {
         clook.init_clook();
         clook.init_start_stop();
         clook.init_delete();
     },
 
+    // Clook initialization
     init_clook: function() {
         if (clook_info.started) {
             clook.run_clook();
@@ -21,6 +24,7 @@ var clook = {
         }
     },
 
+    // Run clook
     run_clook: function() {
         var duration = clook.format_duration(clook_info.duration);
         var started = new Date(clook_info.started);
@@ -39,6 +43,7 @@ var clook = {
         } else clook.update_timer(sector);
     },
 
+    // Format duration
     format_duration: function(time) {
         time = Math.floor(time / 1000);
         var hours   = Math.floor(time / 3600);
@@ -47,6 +52,7 @@ var clook = {
         return hours + 'h ' + minutes + 'm';
     },
 
+    // Format time elapsed
     format_elapsed: function(time) {
         time = Math.floor(time / 1000);
         var hours   = Math.floor(time / 3600);
@@ -57,6 +63,7 @@ var clook = {
         return hours + 'h ' + minutes + 'm ' + seconds + 's';
     },
 
+    // Update timer
     update_timer: function(sector) {
         var background = 'conic-gradient(';
         background += 'var(--primary-color) ' + sector + '%, ';
@@ -64,6 +71,7 @@ var clook = {
         document.querySelector('.timer').style.background = background;
     },
 
+    // Start and stop initialization
     init_start_stop: function() {
         document.querySelector('.start-and-stop').addEventListener('click', function() {
             if (clook_info.started) clook_info.started = undefined;
@@ -72,6 +80,7 @@ var clook = {
         });
     },
 
+    // Update clook
     update_clook: function() {
         ajax('PUT', '/clooks', {
             clook_id: clook_info.id,
@@ -84,6 +93,7 @@ var clook = {
         });
     },
 
+    // Delete button initialization
     init_delete: function() {
         document.querySelector('#delete').addEventListener('click', function() {
             document.querySelector('.w3-modal').style.display = 'block';
@@ -92,18 +102,16 @@ var clook = {
             document.querySelector('.w3-modal').style.display = 'none';
         });
         document.querySelector('#confirm').addEventListener('click', function() {
-            document.querySelector('.w3-modal').style.display = 'none';
             ajax('DELETE', '/clooks', {
                 clook_id: clook_info.id
             }, function(res) {
-                if (res.status == 'success')
-                    window.location.href = '/clooks';
-                else document.querySelector('#error').innerHTML = res.message;
-            });
+                window.location.href = '/clooks';
+            }, document.querySelector('#confirm'));
         });
     }
 
 };
 
 
+// Initialize when page is ready
 document.addEventListener('DOMContentLoaded', clook.init());

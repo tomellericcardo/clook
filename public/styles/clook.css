@@ -1,13 +1,17 @@
+
+/* CLOOK CONTAINER */
 .clook-container {
     padding: 20px 20px 0 20px;
 }
 
+/* CLOOK ELEMENT */
 .clook {
     position: relative;
     left: 10%;
     width: 80%;
 }
 
+/* TIMER ELEMENT */
 .timer {
     width: 100%;
     padding-top: 100%;
@@ -15,6 +19,7 @@
     background-color: var(--primary-color);
 }
 
+/* CLOOK's MIDDLE */
 .middle {
     position: absolute;
     width: 50%;

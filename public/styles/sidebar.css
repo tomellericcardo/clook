@@ -1,3 +1,4 @@
+/* SIDEBAR CLOSE BUTTON */
 #close-sidebar {
     display: none;
     position: fixed;
@@ -7,6 +8,7 @@
     height: 100%;
 }
 
+/* SIDEBAR ELEMENT */
 #sidebar {
     background-color: var(--primary-color);
     display: none;
