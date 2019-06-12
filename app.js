@@ -35,6 +35,13 @@ app.get('/about', function(req, res) {
     });
 });
 
+// Offline page
+app.get('/offline', function(req, res) {
+    res.render('offline', {
+        title: 'Offline'
+    });
+});
+
 // Root redirect
 app.get('/', function(req, res) {
     res.redirect('/clooks');

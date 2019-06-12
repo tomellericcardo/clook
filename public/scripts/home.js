@@ -3,10 +3,18 @@ var home = {
 
     // Initialization
     init: function() {
+        home.install_sw();
         home.init_new();
         home.interval = [];
         for (var i = 0; i < clooks_list.length; i++)
             home.init_clook(i);
+    },
+
+    // Service worker installation
+    install_sw: function() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
     },
 
     // New clook button initialization

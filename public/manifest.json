@@ -1,0 +1,22 @@
+{
+    "name": "Clook",
+    "short_name": "Clook",
+    "description": "A simple timer manager to visualize the flow of time",
+    "start_url": "/clooks",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#282c34",
+    "theme_color": "#282c34",
+    "icons": [
+        {
+            "src": "\/images\/clook192.png",
+            "sizes": "192x192",
+            "type": "image\/png"
+        },
+        {
+            "src": "\/images\/clook512.png",
+            "sizes": "512x512",
+            "type": "image\/png"
+        }
+    ]
+}
