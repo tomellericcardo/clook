@@ -4,6 +4,7 @@ const logger = require('morgan');
 const cookie_parser = require('cookie-parser');
 const exphbs = require('express-handlebars');
 const mongoose = require('./config/database');
+const secure = require('./middlewares/secure');
 const user_routes = require('./routes/users');
 const clook_routes = require('./routes/clooks');
 
@@ -13,9 +14,11 @@ const app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookie_parser());
+app.use(secure.requireHTTPS);
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.set('secret', process.env.SECRET || 'dev');
+app.set('env', process.env.NODE_ENV || 'dev');
 
 
 // Static files
