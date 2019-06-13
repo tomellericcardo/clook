@@ -1,7 +1,7 @@
 {
   "name": "clook",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple timer manager to visualize the flow of time",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"

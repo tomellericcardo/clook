@@ -10,6 +10,7 @@
 
 /* SIDEBAR ELEMENT */
 #sidebar {
+    box-shadow: 3px 5px 5px 0 rgba(0, 0, 0, 0.16), 4px 8px 10px 0 rgba(0, 0, 0, 0.12);
     background-color: var(--primary-color);
     display: none;
 }

@@ -106,7 +106,7 @@ var clook = {
                 clook_id: clook_info.id
             }, function(res) {
                 window.location.href = '/clooks';
-            }, document.querySelector('#confirm'));
+            });
         });
     }
 

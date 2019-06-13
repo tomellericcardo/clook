@@ -29,7 +29,7 @@ var newClook = {
                 if (res.status == 'success')
                     window.location.href = '/clooks/' + res.data.id;
                 else document.querySelector('#error').innerHTML = res.message;
-            }, document.querySelector('#create'));
+            });
         } else document.querySelector('#error').innerHTML = 'You must fill the fields';
     },
 
