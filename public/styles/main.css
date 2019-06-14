@@ -36,7 +36,7 @@ header {
 /* BUTTONS */
 button {
     background-color: var(--button-color)!important;
-    color: #ffffff!important;
+    color: var(--text-color)!important;
 }
 
 /* FAB BUTTONS */
@@ -88,4 +88,17 @@ input:focus, select:focus, button:focus {
     width: 22px;
     height: 22px;
     margin: 3px;
+}
+
+/* ICONS */
+.big-icon {
+    margin-top: 15vh;
+    color: var(--field-color);
+    font-size: 10em;
+}
+
+/* IMAGES */
+
+img {
+    max-width: 100%;
 }
