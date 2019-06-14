@@ -34,7 +34,7 @@ app.use('/clooks', clook_routes);
 app.get('/about', function(req, res) {
     res.render('about', {
         back: true,
-        title: 'About'
+        title: 'Clook'
     });
 });
 
@@ -53,7 +53,7 @@ app.get('/', function(req, res) {
 
 // Detect 404 error
 app.use(function(req, res, next) {
-    let err = new Error('Not Found');
+    let err = new Error('Not found');
     err.status = 404;
     next(err);
 });
@@ -63,8 +63,8 @@ app.use(function(err, req, res, next) {
     console.log(err);
     res.status(err.status).render('error', {
         back: true,
-        title: 'Error ' + err.status,
-        message: err.message
+        title: 'Error',
+        error: err
     });
 });
 
