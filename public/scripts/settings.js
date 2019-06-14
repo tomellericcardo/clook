@@ -30,7 +30,7 @@ var settings = {
                 }, function(res) {
                     if (res.status == 'success') window.location.href = '/clooks';
                     else document.querySelector('#error').innerHTML = res.message;
-                });
+                }, document.querySelector('#change'));
             else document.querySelector('#error').innerHTML = 'New passwords not matching';
         } else document.querySelector('#error').innerHTML = 'You must fill the fields';
     },
@@ -46,7 +46,7 @@ var settings = {
         document.querySelector('#confirm').addEventListener('click', function() {
             ajax('DELETE', '/users', {}, function(res) {
                 window.location.href = '/users/login';
-            });
+            }, document.querySelector('#confirm'));
         });
     }
 

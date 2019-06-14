@@ -90,7 +90,7 @@ var clook = {
                 if (clook.interval) clearInterval(clook.interval);
                 clook.init_clook();
             } else document.querySelector('#error').innerHTML = res.message;
-        });
+        }, document.querySelector('.start-and-stop'));
     },
 
     // Delete button initialization
@@ -106,7 +106,7 @@ var clook = {
                 clook_id: clook_info.id
             }, function(res) {
                 window.location.href = '/clooks';
-            });
+            }, document.querySelector('#confirm'));
         });
     }
 

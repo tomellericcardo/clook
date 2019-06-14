@@ -24,7 +24,7 @@ var registration = {
                 }, function(res) {
                     if (res.status == 'success') window.location.href = '/clooks';
                     else document.querySelector('#error').innerHTML = res.message;
-                });
+                }, document.querySelector('#register'));
             else document.querySelector('#error').innerHTML = 'Passwords not matching';
         } else document.querySelector('#error').innerHTML = 'You must fill the fields';
     }
