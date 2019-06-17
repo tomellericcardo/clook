@@ -12,9 +12,6 @@ var clook = {
     init_clook: function() {
         if (clook_info.started) {
             clook.run_clook(false);
-            clook.interval = setInterval(function() {
-                clook.run_clook(true);
-            }, 1000);
             document.querySelector('.start-and-stop i').innerHTML = 'stop';
         } else {
             let duration = clook.format_duration(clook_info.duration);
@@ -43,7 +40,12 @@ var clook = {
             document.querySelector('#elapsed').innerHTML = duration;
             document.querySelector('#sector').innerHTML = 100;
             clearInterval(clook.interval);
-        } else clook.update_timer(sector);
+        } else {
+            clook.update_timer(sector);
+            clook.interval = setTimeout(function() {
+                clook.run_clook(true);
+            }, 1000);
+        }
     },
 
     // Format duration

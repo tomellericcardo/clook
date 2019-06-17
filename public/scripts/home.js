@@ -26,13 +26,8 @@ var home = {
 
     // Clook initialization
     init_clook: function(i) {
-        if (clooks_list[i].started) {
-            home.run_clook(i, false);
-            home.interval[i] = setInterval(function() {
-                home.run_clook(i, true);
-            }, 1000);
-        } else
-            document.querySelectorAll('.timer')[i].style.background = clooks_list[i].color;
+        if (clooks_list[i].started) home.run_clook(i, false);
+        else document.querySelectorAll('.timer')[i].style.background = clooks_list[i].color;
     },
 
     // Run clook
@@ -44,7 +39,12 @@ var home = {
             if (vibration) navigator.vibrate([200, 100, 200]);
             document.querySelectorAll('.timer')[i].style.background = 'var(--primary-color)';
             clearInterval(home.interval[i]);
-        } else home.update_timer(i, sector);
+        } else {
+            home.update_timer(i, sector);
+            home.interval[i] = setTimeout(function() {
+                home.run_clook(i, true);
+            }, 1000);
+        }
     },
 
     // Update timer
