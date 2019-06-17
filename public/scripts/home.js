@@ -27,20 +27,21 @@ var home = {
     // Clook initialization
     init_clook: function(i) {
         if (clooks_list[i].started) {
-            home.run_clook(i);
+            home.run_clook(i, false);
             home.interval[i] = setInterval(function() {
-                home.run_clook(i);
+                home.run_clook(i, true);
             }, 1000);
         } else
             document.querySelectorAll('.timer')[i].style.background = clooks_list[i].color;
     },
 
     // Run clook
-    run_clook: function(i) {
+    run_clook: function(i, vibration) {
         var started = new Date(clooks_list[i].started)
         var elapsed = Date.now() - started;
         var sector = (elapsed * 100) / clooks_list[i].duration;
         if (sector >= 100) {
+            if (vibration) navigator.vibrate([200, 100, 200]);
             document.querySelectorAll('.timer')[i].style.background = 'var(--primary-color)';
             clearInterval(home.interval[i]);
         } else home.update_timer(i, sector);

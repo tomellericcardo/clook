@@ -11,8 +11,10 @@ var clook = {
     // Clook initialization
     init_clook: function() {
         if (clook_info.started) {
-            clook.run_clook();
-            clook.interval = setInterval(clook.run_clook, 1000);
+            clook.run_clook(false);
+            clook.interval = setInterval(function() {
+                clook.run_clook(true);
+            }, 1000);
             document.querySelector('.start-and-stop i').innerHTML = 'stop';
         } else {
             let duration = clook.format_duration(clook_info.duration);
@@ -25,7 +27,7 @@ var clook = {
     },
 
     // Run clook
-    run_clook: function() {
+    run_clook: function(vibration) {
         var duration = clook.format_duration(clook_info.duration);
         var started = new Date(clook_info.started);
         var elapsed = Date.now() - started;
@@ -34,6 +36,7 @@ var clook = {
         document.querySelector('#elapsed').innerHTML = clook.format_elapsed(elapsed);
         document.querySelector('#sector').innerHTML = Math.floor(sector);
         if (sector >= 100) {
+            if (vibration) navigator.vibrate([200, 100, 200]);
             document.querySelector('.timer').style.background = 'var(--primary-color)';
             document.querySelector('.start-and-stop i').innerHTML = 'refresh';
             document.querySelector('#duration').innerHTML = duration;
